@@ -6,21 +6,47 @@ import os
 from matplotlib import pyplot as plt
 from sklearn.metrics import mean_squared_error
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# ==== Training and Model Parameters ====
+INITIAL_POINTS = 20
+STREAM_POINTS = 180
+TEST_POINTS = 500
+NOISE_LEVEL = 0.1
+FUNCTION_FREQUENCY = 2 * math.pi
+
+NUM_INDUCING = 20
+INITIAL_LENGTHSCALE = 1.0
+INITIAL_OUTPUTSCALE = 1.0
+INITIAL_NOISE = 0.1
+
+BATCH_SIZE = 10
+INITIAL_TRAIN_ITER = 100
+STREAM_TRAIN_ITER = 20
+LEARNING_RATE = 0.01
+
+# ==== Plotting Parameters ====
+FIGURE_SIZE = (10, 6)
+INDUCING_MARKER_SIZE = 80
+DATA_POINT_SIZE = 10
+CONFIDENCE_ALPHA = 0.3
+
+# ==== Device ====
+USE_GPU = True
+device = torch.device("cuda" if (USE_GPU and torch.cuda.is_available()) else "cpu")
+
+# ==== Results Directory ====
 results_dir = os.path.join(os.path.dirname(__file__), '..', 'results')
 os.makedirs(results_dir, exist_ok=True)
 
-# 1. Initial data and streaming data
-init_x = torch.linspace(0, 0.3, 20, device=device)
-init_y = torch.sin(2 * math.pi * init_x) + 0.2 * torch.randn(init_x.size(), device=device)
-stream_x = torch.linspace(0.3, 1, 180, device=device)
-stream_y = torch.sin(2 * math.pi * stream_x) + 0.2 * torch.randn(stream_x.size(), device=device)
+# ==== Data Generation ====
+init_x = torch.linspace(0, 0.3, INITIAL_POINTS, device=device)
+init_y = torch.sin(FUNCTION_FREQUENCY * init_x) + NOISE_LEVEL * torch.randn(init_x.size(), device=device)
+stream_x = torch.linspace(0.3, 1, STREAM_POINTS, device=device)
+stream_y = torch.sin(FUNCTION_FREQUENCY * stream_x) + NOISE_LEVEL * torch.randn(stream_x.size(), device=device)
 
-# Fixed test set for evaluation
-test_x = torch.linspace(0, 1, 500, device=device)
-test_y = torch.sin(2 * math.pi * test_x)
+test_x = torch.linspace(0, 1, TEST_POINTS, device=device)
+test_y = torch.sin(FUNCTION_FREQUENCY * test_x)
 
-# 2. SVGP Model definition
+# ==== SVGP Model Definition ====
 class SVGPRegressionModel(gpytorch.models.ApproximateGP):
     def __init__(self, inducing_points):
         variational_distribution = gpytorch.variational.CholeskyVariationalDistribution(inducing_points.size(0)).to(device)
@@ -38,20 +64,19 @@ class SVGPRegressionModel(gpytorch.models.ApproximateGP):
         covar_x = self.covar_module(x)
         return gpytorch.distributions.MultivariateNormal(mean_x, covar_x)
 
-# 3. Initialize model and likelihood
-num_inducing = 20
+# ==== Initialize model and likelihood ====
 inducing_points = init_x.unsqueeze(-1).clone()
 model = SVGPRegressionModel(inducing_points=inducing_points).to(device)
 likelihood = gpytorch.likelihoods.GaussianLikelihood().to(device)
 
-# 4. Training function
-def train_svgp(model, likelihood, x, y, num_iter=50):
+# ==== Training function ====
+def train_svgp(model, likelihood, x, y, num_iter):
     model.train()
     likelihood.train()
     optimizer = torch.optim.Adam([
         {'params': model.parameters()},
         {'params': likelihood.parameters()},
-    ], lr=0.01)
+    ], lr=LEARNING_RATE)
     mll = gpytorch.mlls.VariationalELBO(likelihood, model, num_data=y.size(0)).to(device)
     for _ in range(num_iter):
         optimizer.zero_grad()
@@ -60,8 +85,7 @@ def train_svgp(model, likelihood, x, y, num_iter=50):
         loss.backward()
         optimizer.step()
 
-# 5. Online update loop
-batch_size = 10
+# ==== Online update loop ====
 all_x = [init_x]
 all_y = [init_y]
 inducing_traj = [model.variational_strategy.inducing_points.detach().cpu().numpy().flatten().copy()]
@@ -71,7 +95,7 @@ outputscale_list = []
 noise_list = []
 
 # Initial training
-train_svgp(model, likelihood, init_x, init_y, num_iter=100)
+train_svgp(model, likelihood, init_x, init_y, num_iter=INITIAL_TRAIN_ITER)
 inducing_traj.append(model.variational_strategy.inducing_points.detach().cpu().numpy().flatten().copy())
 
 # Evaluate after initial training
@@ -82,24 +106,19 @@ with torch.no_grad(), gpytorch.settings.fast_pred_var():
     mean = pred.mean.cpu().numpy()
     rmse = np.sqrt(mean_squared_error(test_y.cpu().numpy(), mean))
     rmse_list.append(rmse)
-    # Record kernel hyperparameters
     lengthscale_list.append(model.covar_module.base_kernel.lengthscale.item())
     outputscale_list.append(model.covar_module.outputscale.item())
     noise_list.append(likelihood.noise.item())
 
-for i in range(0, len(stream_x), batch_size):
-    batch_x = stream_x[i:i+batch_size]
-    batch_y = stream_y[i:i+batch_size]
-    # Add new data
+for i in range(0, len(stream_x), BATCH_SIZE):
+    batch_x = stream_x[i:i+BATCH_SIZE]
+    batch_y = stream_y[i:i+BATCH_SIZE]
     all_x.append(batch_x)
     all_y.append(batch_y)
-    # Retrain on all data so far (for simplicity)
     x_so_far = torch.cat(all_x)
     y_so_far = torch.cat(all_y)
-    train_svgp(model, likelihood, x_so_far, y_so_far, num_iter=20)
-    # Record inducing points
+    train_svgp(model, likelihood, x_so_far, y_so_far, num_iter=STREAM_TRAIN_ITER)
     inducing_traj.append(model.variational_strategy.inducing_points.detach().cpu().numpy().flatten().copy())
-    # Evaluate and record RMSE and kernel hyperparameters
     model.eval()
     likelihood.eval()
     with torch.no_grad(), gpytorch.settings.fast_pred_var():
@@ -111,10 +130,10 @@ for i in range(0, len(stream_x), batch_size):
         outputscale_list.append(model.covar_module.outputscale.item())
         noise_list.append(likelihood.noise.item())
 
-# 6. Plot inducing point trajectories with RMSE tags
-inducing_traj = np.array(inducing_traj)  # shape: (steps, num_inducing)
+# ==== Plot inducing point trajectories with RMSE tags ====
+inducing_traj = np.array(inducing_traj)
 plt.figure(figsize=(12, 6))
-for i in range(num_inducing):
+for i in range(NUM_INDUCING):
     plt.plot(inducing_traj[:, i], color='magenta', alpha=0.7)
 for step, rmse in enumerate(rmse_list):
     plt.text(step, inducing_traj[step, 0], f"{rmse:.3f}", fontsize=8, color='blue', ha='center', va='bottom', rotation=45)
@@ -125,7 +144,7 @@ plt.tight_layout()
 plt.savefig(os.path.join(results_dir, 'online_svgp_inducing_trajectories.png'))
 plt.close()
 
-# 7. Plot kernel hyperparameters over time
+# ==== Plot kernel hyperparameters over time ====
 plt.figure(figsize=(10, 6))
 plt.plot(lengthscale_list, label='Lengthscale')
 plt.plot(outputscale_list, label='Outputscale')
@@ -138,7 +157,7 @@ plt.tight_layout()
 plt.savefig(os.path.join(results_dir, 'online_svgp_hyperparams.png'))
 plt.close()
 
-# 8. Plot RMSE over time
+# ==== Plot RMSE over time ====
 plt.figure(figsize=(8, 4))
 plt.plot(rmse_list, marker='o')
 plt.xlabel('Update Step')
@@ -148,7 +167,7 @@ plt.tight_layout()
 plt.savefig(os.path.join(results_dir, 'online_svgp_rmse_curve.png'))
 plt.close()
 
-# 9. Plot final model fit and inducing points
+# ==== Plot final model fit and inducing points ====
 model.eval()
 likelihood.eval()
 with torch.no_grad(), gpytorch.settings.fast_pred_var():
@@ -158,13 +177,13 @@ with torch.no_grad(), gpytorch.settings.fast_pred_var():
     lower = lower.cpu().numpy()
     upper = upper.cpu().numpy()
 
-plt.figure(figsize=(10, 6))
-plt.plot(test_x.cpu().numpy(), np.sin(2 * np.pi * test_x.cpu().numpy()), 'g--', label='True Function')
+plt.figure(figsize=FIGURE_SIZE)
+plt.plot(test_x.cpu().numpy(), np.sin(FUNCTION_FREQUENCY * test_x.cpu().numpy()), 'g--', label='True Function')
 plt.plot(test_x.cpu().numpy(), mean, 'b', label='SVGP Predictive Mean')
-plt.fill_between(test_x.cpu().numpy(), lower, upper, alpha=0.3, label='Confidence')
-plt.scatter(torch.cat(all_x).cpu().numpy(), torch.cat(all_y).cpu().numpy(), color='k', s=10, alpha=0.3, label='Data')
+plt.fill_between(test_x.cpu().numpy(), lower, upper, alpha=CONFIDENCE_ALPHA, label='Confidence')
+plt.scatter(torch.cat(all_x).cpu().numpy(), torch.cat(all_y).cpu().numpy(), color='k', s=DATA_POINT_SIZE, alpha=0.3, label='Data')
 final_inducing = model.variational_strategy.inducing_points.detach().cpu().numpy().flatten()
-plt.scatter(final_inducing, np.sin(2 * np.pi * final_inducing), marker='x', color='magenta', s=80, label='Final Inducing Points')
+plt.scatter(final_inducing, np.sin(FUNCTION_FREQUENCY * final_inducing), marker='x', color='magenta', s=INDUCING_MARKER_SIZE, label='Final Inducing Points')
 plt.legend()
 plt.title('Online SVGP: Final Fit and Inducing Points')
 plt.xlabel('x')
