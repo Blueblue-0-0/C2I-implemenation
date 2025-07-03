@@ -346,7 +346,7 @@ def run_initial_dac():
         consensus_chol_matrices = np.zeros_like(chol_matrices)
         n_inducing = chol_matrices.shape[1]
         
-        print(f"  Applying consensus to {n_inducing}×{n_inducing} = {n_inducing**2} covariance elements...")
+        print(f"  Applying consensus to {n_inducing}×{n_inducing} covariance elements...")
         
         # Count operations for progress tracking
         total_elements = 0
@@ -713,6 +713,26 @@ def create_all_plots():
                         color=color, marker=marker_style, linewidth=2, markersize=6,
                         label=label, alpha=0.9)
                 ax2.axhline(inducing_y[global_idx], color=color, linestyle='--', alpha=0.7, linewidth=1.5)
+
+            # Calculate consistent y-axis limits for both plots
+            initial_data = mean_history_initial[agent_idx][:, all_selected_indices]
+            validation_data = mean_history_validation[agent_idx][:, all_selected_indices]
+            true_values = inducing_y[all_selected_indices]
+
+            # Combine all data to find global min/max
+            all_data = np.concatenate([initial_data.flatten(), validation_data.flatten(), true_values])
+            y_min = np.min(all_data)
+            y_max = np.max(all_data)
+
+            # Add some padding (5% on each side)
+            y_range = y_max - y_min
+            padding = y_range * 0.05
+            y_min_padded = y_min - padding
+            y_max_padded = y_max + padding
+
+            # Set identical y-axis limits for both subplots
+            ax1.set_ylim(y_min_padded, y_max_padded)
+            ax2.set_ylim(y_min_padded, y_max_padded)
 
             # Format first subplot (Initial phase)
             ax1.set_xlabel('DAC Step', fontsize=13)
