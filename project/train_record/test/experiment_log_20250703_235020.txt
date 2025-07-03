@@ -1,0 +1,212 @@
+
+================================================================================
+DISTRIBUTED GP CONSENSUS EXPERIMENT LOG
+================================================================================
+Start Time: 2025-07-03 23:50:20
+Configuration:
+  - Number of Agents: 4
+  - Initial Training Size: 500
+  - Additional Data Size: 500
+  - Training Iterations: 500
+  - Consensus Steps: 5
+  - Device: cpu
+================================================================================
+
+[    0.00s] Loading agent data and inducing points...
+[    0.05s] DATA SUMMARY:
+[    0.05s]   - Total inducing points: 100
+[    0.05s]   - Initial training size per agent: 500
+[    0.05s]   - Additional data size per agent: 500
+[    0.05s]   - Training iterations per agent: 500
+
+[    0.05s] AGENT-SPECIFIC INDUCING POINTS:
+[    0.05s]   - Agent 1: 25 inducing points
+[    0.05s]   - Agent 2: 25 inducing points
+[    0.06s]   - Agent 3: 25 inducing points
+[    0.06s]   - Agent 4: 25 inducing points
+
+[    0.06s] ============================================================
+[    0.06s] PHASE 1: INITIAL TRAINING AND DAC
+[    0.06s] ============================================================
+
+[    0.06s] Starting Agent Initialization and Training...
+
+[    0.06s] INITIALIZING Agent 0...
+[    0.85s] TRAINING Agent 0 (initial) with 500 iterations...
+[    9.10s] Agent 0 training completed in 8.25s (total: 9.04s)
+
+[    9.10s] INITIALIZING Agent 1...
+[    9.10s] TRAINING Agent 1 (initial) with 500 iterations...
+[   14.99s] Agent 1 training completed in 5.89s (total: 5.89s)
+
+[   14.99s] INITIALIZING Agent 2...
+[   14.99s] TRAINING Agent 2 (initial) with 500 iterations...
+[   20.89s] Agent 2 training completed in 5.89s (total: 5.90s)
+
+[   20.89s] INITIALIZING Agent 3...
+[   20.89s] TRAINING Agent 3 (initial) with 500 iterations...
+[   26.83s] Agent 3 training completed in 5.94s (total: 5.94s)
+[   26.83s] Agent Initialization and Training completed in 26.78 seconds
+
+[   26.83s] STORING initial hyperparameters (pre-DAC)...
+
+[   26.83s] SETTING UP DAC consensus (ring topology)...
+[   26.83s] DAC consensus matrix configured (alpha=0.2)
+
+[   26.83s] Starting Initial DAC Consensus...
+
+[   26.83s] RUNNING initial DAC consensus...
+
+[   26.83s] INITIAL DAC Step 1/5...
+[   26.86s] DAC Step 1 completed in 0.03s
+
+[   26.86s] INITIAL DAC Step 2/5...
+[   26.87s] DAC Step 2 completed in 0.00s
+
+[   26.87s] INITIAL DAC Step 3/5...
+[   26.87s] DAC Step 3 completed in 0.00s
+
+[   26.87s] INITIAL DAC Step 4/5...
+[   26.87s] DAC Step 4 completed in 0.00s
+
+[   26.87s] INITIAL DAC Step 5/5...
+[   26.87s] DAC Step 5 completed in 0.00s
+[   26.87s] Initial DAC Consensus completed in 0.04 seconds
+
+[   26.87s] STORING initial hyperparameters (post-DAC)...
+[   26.87s] Initial phase data converted to numpy arrays
+
+[   26.87s] ============================================================
+[   26.87s] PHASE 2: VALIDATION WITH ADDITIONAL DATA
+[   26.87s] ============================================================
+
+[   26.87s] Starting Data Addition and Validation Training...
+
+[   26.87s] ADDING new data to each agent...
+
+[   26.87s] PROCESSING Agent 0...
+[   26.87s] Agent 0 data shapes:
+[   26.87s]   - Current train_x: torch.Size([500, 8])
+[   26.87s]   - Current train_y: torch.Size([500, 1])
+[   26.87s]   - New x: torch.Size([500, 8])
+[   26.87s]   - New y: torch.Size([500, 1])
+[   26.87s] Agent 0: Added 500 new training points
+[   26.87s]   - Final shapes - X: torch.Size([1000, 8]), Y: torch.Size([1000, 1])
+[   26.87s]   - Total training points: 1000
+[   26.87s] Agent 0 data processing: 0.00s
+
+[   26.87s] PROCESSING Agent 1...
+[   26.87s] Agent 1 data shapes:
+[   26.87s]   - Current train_x: torch.Size([500, 8])
+[   26.87s]   - Current train_y: torch.Size([500, 1])
+[   26.87s]   - New x: torch.Size([500, 8])
+[   26.87s]   - New y: torch.Size([500, 1])
+[   26.87s] Agent 1: Added 500 new training points
+[   26.87s]   - Final shapes - X: torch.Size([1000, 8]), Y: torch.Size([1000, 1])
+[   26.88s]   - Total training points: 1000
+[   26.88s] Agent 1 data processing: 0.00s
+
+[   26.88s] PROCESSING Agent 2...
+[   26.88s] Agent 2 data shapes:
+[   26.88s]   - Current train_x: torch.Size([500, 8])
+[   26.88s]   - Current train_y: torch.Size([500, 1])
+[   26.88s]   - New x: torch.Size([500, 8])
+[   26.88s]   - New y: torch.Size([500, 1])
+[   26.88s] Agent 2: Added 500 new training points
+[   26.88s]   - Final shapes - X: torch.Size([1000, 8]), Y: torch.Size([1000, 1])
+[   26.88s]   - Total training points: 1000
+[   26.88s] Agent 2 data processing: 0.00s
+
+[   26.88s] PROCESSING Agent 3...
+[   26.88s] Agent 3 data shapes:
+[   26.88s]   - Current train_x: torch.Size([500, 8])
+[   26.88s]   - Current train_y: torch.Size([500, 1])
+[   26.88s]   - New x: torch.Size([500, 8])
+[   26.88s]   - New y: torch.Size([500, 1])
+[   26.88s] Agent 3: Added 500 new training points
+[   26.88s]   - Final shapes - X: torch.Size([1000, 8]), Y: torch.Size([1000, 1])
+[   26.88s]   - Total training points: 1000
+[   26.88s] Agent 3 data processing: 0.00s
+
+[   26.88s] STORING pre-validation training hyperparameters...
+
+[   26.88s] RETRAINING agents with additional data...
+[   26.88s] RETRAINING Agent 0 with 1000 total data points using 500 iterations...
+[   33.55s] Agent 0 retraining completed in 6.67s
+[   33.55s] RETRAINING Agent 1 with 1000 total data points using 500 iterations...
+[   40.25s] Agent 1 retraining completed in 6.70s
+[   40.25s] RETRAINING Agent 2 with 1000 total data points using 500 iterations...
+[   47.08s] Agent 2 retraining completed in 6.83s
+[   47.08s] RETRAINING Agent 3 with 1000 total data points using 500 iterations...
+[   53.89s] Agent 3 retraining completed in 6.81s
+
+[   53.89s] STORING post-validation training hyperparameters (pre-DAC)...
+[   53.89s] Data Addition and Validation Training completed in 27.01 seconds
+
+[   53.89s] Starting Validation DAC Consensus...
+
+[   53.89s] RUNNING validation DAC consensus...
+
+[   53.89s] VALIDATION DAC Step 1/5...
+[   53.89s] Validation DAC Step 1 completed in 0.00s
+
+[   53.89s] VALIDATION DAC Step 2/5...
+[   53.89s] Validation DAC Step 2 completed in 0.00s
+
+[   53.89s] VALIDATION DAC Step 3/5...
+[   53.89s] Validation DAC Step 3 completed in 0.00s
+
+[   53.89s] VALIDATION DAC Step 4/5...
+[   53.89s] Validation DAC Step 4 completed in 0.00s
+
+[   53.89s] VALIDATION DAC Step 5/5...
+[   53.90s] Validation DAC Step 5 completed in 0.00s
+[   53.90s] Validation DAC Consensus completed in 0.01 seconds
+
+[   53.90s] STORING final hyperparameters (post-DAC)...
+[   53.90s] Validation phase data converted to numpy arrays
+
+[   53.90s] Starting Data Saving...
+
+[   53.90s] SAVING experiment data...
+[   53.91s] Hyperparameters saved to: project/train_record/test/hyperparameters_history.csv
+[   53.96s] Evolution data saved for all agents and phases
+[   53.96s] Data Saving completed in 0.07 seconds
+
+[   53.96s] Starting Plot Generation...
+
+[   53.96s] CREATING visualization plots...
+[   53.96s] Creating plots for Agent 1...
+[   53.96s] Agent 1: Plotting 16 points total (4 from each agent region)
+[   55.90s] Agent 1 gradient plot saved with 16 points (4 from each region) (1.94s)
+[   55.90s] Creating plots for Agent 2...
+[   55.90s] Agent 2: Plotting 16 points total (4 from each agent region)
+[   57.50s] Agent 2 gradient plot saved with 16 points (4 from each region) (1.60s)
+[   57.50s] Creating plots for Agent 3...
+[   57.50s] Agent 3: Plotting 16 points total (4 from each agent region)
+[   59.04s] Agent 3 gradient plot saved with 16 points (4 from each region) (1.54s)
+[   59.04s] Creating plots for Agent 4...
+[   59.04s] Agent 4: Plotting 16 points total (4 from each agent region)
+[   60.92s] Agent 4 gradient plot saved with 16 points (4 from each region) (1.87s)
+[   60.92s] All 4 plots generated successfully
+[   60.92s] Plot Generation completed in 6.95 seconds
+
+[   60.92s] ============================================================
+[   60.92s] EXPERIMENT SUMMARY
+[   60.92s] ============================================================
+[   60.92s] All results saved to: project/train_record/test
+[   60.92s] Files created:
+[   60.92s]   - experiment_log_*.txt (this log file)
+[   60.92s]   - hyperparameters_history.csv
+[   60.92s]   - agent_*_initial_evolution.csv
+[   60.92s]   - agent_*_validation_evolution.csv
+[   60.92s]   - agent_*_initial_vs_validation.png
+
+[   60.92s] Experiment completed successfully!
+
+
+================================================================================
+EXPERIMENT COMPLETED
+End Time: 2025-07-03 23:51:21
+Total Runtime: 60.92 seconds (1.02 minutes)
+================================================================================

@@ -20,8 +20,8 @@ POINTS_PER_AGENT = 4  # Keep this as 4 (points per agent region)
 TOTAL_POINTS_TO_PLOT = 16  # 4 agents × 4 points each = 16 total points
 ADDITIONAL_DATA_SIZE = 500  # New data to add for validation
 
-# Create validation folder
-validation_dir = 'project/train_record/test'
+# Create validation folder for Full Covariance experiment
+validation_dir = 'project/train_record/test_2'
 os.makedirs(validation_dir, exist_ok=True)
 
 # ============================================================================
@@ -39,7 +39,7 @@ class Logger:
     def write_header(self):
         header = f"""
 {'='*80}
-DISTRIBUTED GP CONSENSUS EXPERIMENT LOG
+DISTRIBUTED GP CONSENSUS EXPERIMENT LOG - FULL COVARIANCE MATRIX
 {'='*80}
 Start Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 Configuration:
@@ -49,6 +49,7 @@ Configuration:
   - Training Iterations: {NUM_ITER}
   - Consensus Steps: {CONSENSUS_STEPS}
   - Device: {DEVICE}
+  - Consensus Type: FULL COVARIANCE MATRIX
 {'='*80}
 
 """
@@ -88,7 +89,7 @@ Configuration:
         footer = f"""
 
 {'='*80}
-EXPERIMENT COMPLETED
+EXPERIMENT COMPLETED - FULL COVARIANCE MATRIX
 End Time: {end_time}
 Total Runtime: {total_elapsed:.2f} seconds ({total_elapsed/60:.2f} minutes)
 {'='*80}
@@ -97,7 +98,7 @@ Total Runtime: {total_elapsed:.2f} seconds ({total_elapsed/60:.2f} minutes)
         self.log_file.close()
 
 # Setup logging
-log_file_path = f'{validation_dir}/experiment_log_{datetime.now().strftime("%Y%m%d_%H%M%S")}.txt'
+log_file_path = f'{validation_dir}/experiment_log_full_covariance_{datetime.now().strftime("%Y%m%d_%H%M%S")}.txt'
 logger = Logger(log_file_path)
 sys.stdout = logger
 
@@ -136,15 +137,18 @@ inducing_points = inducing_df[inducing_x_cols].values  # shape (100, D)
 inducing_y = inducing_df['y'].values  # shape (100,)
 inducing_agent_idx = inducing_df['agent_idx'].values  # shape (100,)
 
-print(f"DATA SUMMARY:")
+print(f"DATA SUMMARY - FULL COVARIANCE CONSENSUS:")
 print(f"  - Total inducing points: {inducing_points.shape[0]}")
 print(f"  - Initial training size per agent: {INIT_TRAIN_SIZE}")
 print(f"  - Additional data size per agent: {ADDITIONAL_DATA_SIZE}")
 print(f"  - Training iterations per agent: {NUM_ITER}")
+print(f"  - Consensus type: FULL COVARIANCE MATRIX")
 
-# Prepare to store mean histories for all phases
+# Prepare to store mean histories and covariance histories for all phases
 mean_history_initial = [[] for _ in range(NUM_AGENTS)]
 mean_history_validation = [[] for _ in range(NUM_AGENTS)]
+covariance_history_initial = [[] for _ in range(NUM_AGENTS)]  # NEW: Store covariance evolution
+covariance_history_validation = [[] for _ in range(NUM_AGENTS)]  # NEW: Store covariance evolution
 hyperparameters_history = []
 
 # Get the true y for each agent's inducing points
@@ -155,10 +159,37 @@ for agent_idx in range(NUM_AGENTS):
     print(f"  - Agent {agent_idx+1}: {len(agent_inducing_y)} inducing points")
 
 # ============================================================================
+# ADD NEW METHOD TO AGENT CLASS
+# ============================================================================
+def inject_full_consensus_to_variational(self):
+    """Inject consensus mean and full Cholesky matrix into variational distribution"""
+    if hasattr(self, 'consensus_mean') and hasattr(self, 'consensus_chol_matrix'):
+        var_dist = self.model.variational_strategy._variational_distribution
+        
+        # Update variational mean
+        var_dist.variational_mean.data = torch.tensor(
+            self.consensus_mean, dtype=torch.float32, device=var_dist.variational_mean.device
+        )
+        
+        # Update full Cholesky matrix
+        var_dist.chol_variational_covar.data = torch.tensor(
+            self.consensus_chol_matrix, dtype=torch.float32, 
+            device=var_dist.chol_variational_covar.device
+        )
+        
+        print(f"Agent {self.id}: Updated FULL mean and covariance from consensus")
+    else:
+        # Fallback to original method
+        self.inject_consensus_to_variational()
+
+# Monkey patch the method to Agent class
+Agent.inject_full_consensus_to_variational = inject_full_consensus_to_variational
+
+# ============================================================================
 # PHASE 1: INITIAL TRAINING WITH 500 DATA POINTS
 # ============================================================================
 print("\n" + "=" * 60)
-print("PHASE 1: INITIAL TRAINING AND DAC")
+print("PHASE 1: INITIAL TRAINING AND FULL COVARIANCE DAC")
 print("=" * 60)
 
 @time_function("Agent Initialization and Training")
@@ -233,8 +264,15 @@ def extract_hyperparameters(agent, phase, step_type):
         hyper_data['var_mean_std'] = var_mean.std()
         hyper_data['chol_diag_min'] = np.diag(chol).min()
         hyper_data['chol_diag_max'] = np.diag(chol).max()
+        
+        # NEW: Add covariance matrix statistics
+        covar = chol @ chol.T
+        hyper_data['covar_trace'] = np.trace(covar)
+        hyper_data['covar_det'] = np.linalg.det(covar)
+        hyper_data['covar_frobenius_norm'] = np.linalg.norm(covar, 'fro')
+        
     except Exception as e:
-        print(f"⚠️  Warning: Could not extract variational parameters for agent {agent.id}: {e}")
+        print(f"Warning: Could not extract variational parameters for agent {agent.id}: {e}")
     
     return hyper_data
 
@@ -253,60 +291,110 @@ L = D - A
 dac = DACConsensus(L, alpha=0.2)
 print(f"DAC consensus matrix configured (alpha=0.2)")
 
-@time_function("Initial DAC Consensus")
+@time_function("Initial DAC Consensus with Full Covariance")
 def run_initial_dac():
-    print(f"\nRUNNING initial DAC consensus...")
+    print(f"\nRUNNING initial DAC consensus with FULL covariance matrix...")
     for step in range(CONSENSUS_STEPS):
         step_start_time = time.time()
         print(f"\nINITIAL DAC Step {step+1}/{CONSENSUS_STEPS}...")
         
         means = []
-        vars = []
-        precisions = []
+        chol_matrices = []  # Store full Cholesky matrices
         
         for agent in agents:
             var_dist = agent.model.variational_strategy._variational_distribution
             mean = var_dist.variational_mean.detach().cpu().numpy()
             chol = var_dist.chol_variational_covar.detach().cpu().numpy()
-            covar = chol @ chol.T
-            var = np.diag(covar)
-            precision = 1.0 / (var + 1e-6)
             
             means.append(mean)
-            vars.append(var)
-            precisions.append(precision)
+            chol_matrices.append(chol)
         
-        means = np.stack(means)
-        vars = np.stack(vars)
-        precisions = np.stack(precisions)
+        means = np.stack(means)  # Shape: (num_agents, num_inducing)
+        chol_matrices = np.stack(chol_matrices)  # Shape: (num_agents, num_inducing, num_inducing)
 
         # Record BEFORE consensus
         for i in range(NUM_AGENTS):
             mean_history_initial[i].append(means[i].copy())
+            # NEW: Store covariance matrices
+            covar = chol_matrices[i] @ chol_matrices[i].T
+            covariance_history_initial[i].append(covar.copy())
 
-        # Precision-weighted consensus
+        # 1. CONSENSUS ON MEANS (precision-weighted)
+        precisions = []
+        for i in range(NUM_AGENTS):
+            covar = chol_matrices[i] @ chol_matrices[i].T
+            var = np.diag(covar)
+            precision = 1.0 / (var + 1e-6)
+            precisions.append(precision)
+        
+        precisions = np.stack(precisions)
         weighted_means = means * precisions
         
+        # Apply DAC to weighted means
         dac.reset(weighted_means)
         for _ in range(1):
             weighted_means = dac.step(weighted_means)
         
+        # Apply DAC to precisions
         dac.reset(precisions)
         for _ in range(1):
             precisions = dac.step(precisions)
         
-        # Recover consensus parameters
         consensus_means = weighted_means / (precisions + 1e-6)
-        consensus_vars = 1.0 / (precisions + 1e-6)
 
-        # Inject consensus back into agents
+        # 2. CONSENSUS ON EVERY ELEMENT OF CHOLESKY MATRIX
+        consensus_chol_matrices = np.zeros_like(chol_matrices)
+        n_inducing = chol_matrices.shape[1]
+        
+        print(f"  Applying consensus to {n_inducing}×{n_inducing} = {n_inducing**2} covariance elements...")
+        
+        # Count operations for progress tracking
+        total_elements = 0
+        processed_elements = 0
+        
+        for i in range(n_inducing):
+            for j in range(n_inducing):
+                if j <= i:  # Only lower triangular (Cholesky property)
+                    total_elements += 1
+        
+        for i in range(n_inducing):
+            for j in range(n_inducing):
+                if j <= i:  # Only lower triangular (Cholesky property)
+                    # Extract element (i,j) from all agents
+                    element_values = chol_matrices[:, i, j]  # Shape: (num_agents,)
+                    
+                    # Apply consensus to this element
+                    dac.reset(element_values.reshape(-1, 1))  # DAC expects 2D
+                    for _ in range(1):
+                        element_values = dac.step(element_values.reshape(-1, 1)).flatten()
+                    
+                    # Store consensus element
+                    consensus_chol_matrices[:, i, j] = element_values
+                    
+                    processed_elements += 1
+                    if processed_elements % 100 == 0:
+                        progress = (processed_elements / total_elements) * 100
+                        print(f"    Progress: {processed_elements}/{total_elements} elements ({progress:.1f}%)")
+                else:
+                    # Upper triangular stays zero (Cholesky property)
+                    consensus_chol_matrices[:, i, j] = 0.0
+
+        # 3. ENSURE POSITIVE DEFINITENESS
+        for i in range(NUM_AGENTS):
+            # Make sure diagonal elements are positive
+            diag_indices = np.arange(n_inducing)
+            consensus_chol_matrices[i, diag_indices, diag_indices] = np.abs(
+                consensus_chol_matrices[i, diag_indices, diag_indices]
+            ) + 1e-6
+
+        # 4. INJECT CONSENSUS BACK INTO AGENTS
         for i, agent in enumerate(agents):
             agent.consensus_mean = consensus_means[i]
-            agent.consensus_var = consensus_vars[i]
-            agent.inject_consensus_to_variational()
+            agent.consensus_chol_matrix = consensus_chol_matrices[i]
+            agent.inject_full_consensus_to_variational()  # Use new method
         
         step_time = time.time() - step_start_time
-        print(f"DAC Step {step+1} completed in {step_time:.2f}s")
+        print(f"  DAC Step {step+1} completed in {step_time:.2f}s")
 
 run_initial_dac()
 
@@ -314,15 +402,16 @@ print(f"\nSTORING initial hyperparameters (post-DAC)...")
 for agent in agents:
     hyperparameters_history.append(extract_hyperparameters(agent, 'initial', 'post_dac'))
 
-# Convert initial mean_history to numpy arrays
+# Convert initial histories to numpy arrays
 mean_history_initial = [np.stack(agent_means) for agent_means in mean_history_initial]
+covariance_history_initial = [np.stack(agent_covars) for agent_covars in covariance_history_initial]
 print(f"Initial phase data converted to numpy arrays")
 
 # ============================================================================
-# PHASE 2: ADD NEW DATA, RETRAIN, AND RUN DAC AGAIN
+# PHASE 2: ADD NEW DATA, RETRAIN, AND RUN FULL COVARIANCE DAC AGAIN
 # ============================================================================
 print("\n" + "=" * 60)
-print("PHASE 2: VALIDATION WITH ADDITIONAL DATA")
+print("PHASE 2: VALIDATION WITH ADDITIONAL DATA AND FULL COVARIANCE DAC")
 print("=" * 60)
 
 @time_function("Data Addition and Validation Training")
@@ -393,60 +482,95 @@ def add_data_and_retrain():
 
 add_data_and_retrain()
 
-@time_function("Validation DAC Consensus")
+@time_function("Validation DAC Consensus with Full Covariance")
 def run_validation_dac():
-    print(f"\nRUNNING validation DAC consensus...")
+    print(f"\nRUNNING validation DAC consensus with FULL covariance matrix...")
     for step in range(CONSENSUS_STEPS):
         step_start_time = time.time()
         print(f"\nVALIDATION DAC Step {step+1}/{CONSENSUS_STEPS}...")
         
         means = []
-        vars = []
-        precisions = []
+        chol_matrices = []
         
         for agent in agents:
             var_dist = agent.model.variational_strategy._variational_distribution
             mean = var_dist.variational_mean.detach().cpu().numpy()
             chol = var_dist.chol_variational_covar.detach().cpu().numpy()
-            covar = chol @ chol.T
-            var = np.diag(covar)
-            precision = 1.0 / (var + 1e-6)
             
             means.append(mean)
-            vars.append(var)
-            precisions.append(precision)
+            chol_matrices.append(chol)
         
         means = np.stack(means)
-        vars = np.stack(vars)
-        precisions = np.stack(precisions)
+        chol_matrices = np.stack(chol_matrices)
 
         # Record BEFORE consensus
         for i in range(NUM_AGENTS):
             mean_history_validation[i].append(means[i].copy())
+            # NEW: Store covariance matrices
+            covar = chol_matrices[i] @ chol_matrices[i].T
+            covariance_history_validation[i].append(covar.copy())
 
-        # Precision-weighted consensus
+        # 1. CONSENSUS ON MEANS (precision-weighted)
+        precisions = []
+        for i in range(NUM_AGENTS):
+            covar = chol_matrices[i] @ chol_matrices[i].T
+            var = np.diag(covar)
+            precision = 1.0 / (var + 1e-6)
+            precisions.append(precision)
+        
+        precisions = np.stack(precisions)
         weighted_means = means * precisions
         
+        # Apply DAC to weighted means
         dac.reset(weighted_means)
         for _ in range(1):
             weighted_means = dac.step(weighted_means)
         
+        # Apply DAC to precisions
         dac.reset(precisions)
         for _ in range(1):
             precisions = dac.step(precisions)
         
-        # Recover consensus parameters
         consensus_means = weighted_means / (precisions + 1e-6)
-        consensus_vars = 1.0 / (precisions + 1e-6)
 
-        # Inject consensus back into agents
+        # 2. CONSENSUS ON EVERY ELEMENT OF CHOLESKY MATRIX
+        consensus_chol_matrices = np.zeros_like(chol_matrices)
+        n_inducing = chol_matrices.shape[1]
+        
+        print(f"  Applying consensus to {n_inducing}×{n_inducing} covariance elements...")
+        
+        for i in range(n_inducing):
+            for j in range(n_inducing):
+                if j <= i:  # Only lower triangular (Cholesky property)
+                    # Extract element (i,j) from all agents
+                    element_values = chol_matrices[:, i, j]
+                    
+                    # Apply consensus to this element
+                    dac.reset(element_values.reshape(-1, 1))
+                    for _ in range(1):
+                        element_values = dac.step(element_values.reshape(-1, 1)).flatten()
+                    
+                    # Store consensus element
+                    consensus_chol_matrices[:, i, j] = element_values
+                else:
+                    # Upper triangular stays zero
+                    consensus_chol_matrices[:, i, j] = 0.0
+
+        # 3. ENSURE POSITIVE DEFINITENESS
+        for i in range(NUM_AGENTS):
+            diag_indices = np.arange(n_inducing)
+            consensus_chol_matrices[i, diag_indices, diag_indices] = np.abs(
+                consensus_chol_matrices[i, diag_indices, diag_indices]
+            ) + 1e-6
+
+        # 4. INJECT CONSENSUS BACK INTO AGENTS
         for i, agent in enumerate(agents):
             agent.consensus_mean = consensus_means[i]
-            agent.consensus_var = consensus_vars[i]
-            agent.inject_consensus_to_variational()
+            agent.consensus_chol_matrix = consensus_chol_matrices[i]
+            agent.inject_full_consensus_to_variational()
         
         step_time = time.time() - step_start_time
-        print(f"Validation DAC Step {step+1} completed in {step_time:.2f}s")
+        print(f"  Validation DAC Step {step+1} completed in {step_time:.2f}s")
 
 run_validation_dac()
 
@@ -454,8 +578,9 @@ print(f"\nSTORING final hyperparameters (post-DAC)...")
 for agent in agents:
     hyperparameters_history.append(extract_hyperparameters(agent, 'validation', 'post_dac'))
 
-# Convert validation mean_history to numpy arrays
+# Convert validation histories to numpy arrays
 mean_history_validation = [np.stack(agent_means) for agent_means in mean_history_validation]
+covariance_history_validation = [np.stack(agent_covars) for agent_covars in covariance_history_validation]
 print(f"Validation phase data converted to numpy arrays")
 
 # ============================================================================
@@ -467,7 +592,7 @@ def save_all_data():
     
     # Save hyperparameters
     hyperparameters_df = pd.DataFrame(hyperparameters_history)
-    hyperparameters_csv_path = f'{validation_dir}/hyperparameters_history.csv'
+    hyperparameters_csv_path = f'{validation_dir}/hyperparameters_history_full_covariance.csv'
     hyperparameters_df.to_csv(hyperparameters_csv_path, index=False)
     print(f"Hyperparameters saved to: {hyperparameters_csv_path}")
     
@@ -486,7 +611,31 @@ def save_all_data():
                     })
             
             df = pd.DataFrame(agent_evolution_data)
-            csv_path = f'{validation_dir}/agent_{agent_idx}_{phase_name}_evolution.csv'
+            csv_path = f'{validation_dir}/agent_{agent_idx}_{phase_name}_evolution_full_covariance.csv'
+            df.to_csv(csv_path, index=False)
+    
+    # NEW: Save covariance evolution data
+    print(f"Saving covariance evolution data...")
+    for phase_name, covar_history in [('initial', covariance_history_initial), ('validation', covariance_history_validation)]:
+        for agent_idx in range(NUM_AGENTS):
+            covar_evolution_data = []
+            for step in range(CONSENSUS_STEPS):
+                covar_matrix = covar_history[agent_idx][step]
+                # Save key covariance statistics
+                covar_evolution_data.append({
+                    'agent_id': agent_idx,
+                    'dac_step': step,
+                    'phase': phase_name,
+                    'trace': np.trace(covar_matrix),
+                    'determinant': np.linalg.det(covar_matrix + np.eye(covar_matrix.shape[0]) * 1e-6),
+                    'frobenius_norm': np.linalg.norm(covar_matrix, 'fro'),
+                    'condition_number': np.linalg.cond(covar_matrix),
+                    'min_eigenvalue': np.min(np.linalg.eigvals(covar_matrix)),
+                    'max_eigenvalue': np.max(np.linalg.eigvals(covar_matrix))
+                })
+            
+            df = pd.DataFrame(covar_evolution_data)
+            csv_path = f'{validation_dir}/agent_{agent_idx}_{phase_name}_covariance_evolution.csv'
             df.to_csv(csv_path, index=False)
     
     print(f"Evolution data saved for all agents and phases")
@@ -495,7 +644,7 @@ save_all_data()
 
 @time_function("Plot Generation")
 def create_all_plots():
-    print(f"\nCREATING visualization plots...")
+    print(f"\nCREATING visualization plots for FULL COVARIANCE consensus...")
     
     # Fix matplotlib deprecation
     import matplotlib
@@ -540,14 +689,14 @@ def create_all_plots():
             # Define marker styles for points within each agent
             marker_styles = ['o', 's', '^', 'D']  # Circle, square, triangle, diamond
             
-            # Plot initial phase
             for plot_idx, global_idx in enumerate(all_selected_indices):
-                source_agent = plot_idx // 4
-                point_in_agent = plot_idx % 4
+                source_agent = plot_idx // 4  # Which agent this point belongs to
+                point_in_agent = plot_idx % 4   # Which point within that agent (0-3)
                 
                 color = agent_color_schemes[source_agent][point_in_agent]
                 marker_style = marker_styles[point_in_agent]
                 
+                # Create more descriptive labels
                 agent_names = ['Agent1', 'Agent2', 'Agent3', 'Agent4']
                 point_names = ['P1', 'P2', 'P3', 'P4']
                 
@@ -565,42 +714,23 @@ def create_all_plots():
                         label=label, alpha=0.9)
                 ax2.axhline(inducing_y[global_idx], color=color, linestyle='--', alpha=0.7, linewidth=1.5)
 
-            # Calculate consistent y-axis limits for both plots
-            initial_data = mean_history_initial[agent_idx][:, all_selected_indices]
-            validation_data = mean_history_validation[agent_idx][:, all_selected_indices]
-            true_values = inducing_y[all_selected_indices]
-
-            # Combine all data to find global min/max
-            all_data = np.concatenate([initial_data.flatten(), validation_data.flatten(), true_values])
-            y_min = np.min(all_data)
-            y_max = np.max(all_data)
-
-            # Add some padding (5% on each side)
-            y_range = y_max - y_min
-            padding = y_range * 0.05
-            y_min_padded = y_min - padding
-            y_max_padded = y_max + padding
-
-            # Set identical y-axis limits for both subplots
-            ax1.set_ylim(y_min_padded, y_max_padded)
-            ax2.set_ylim(y_min_padded, y_max_padded)
-
             # Format first subplot (Initial phase)
             ax1.set_xlabel('DAC Step', fontsize=13)
             ax1.set_ylabel('Variational Mean Value', fontsize=13)
-            ax1.set_title(f'Agent {agent_idx+1}: Initial Training ({INIT_TRAIN_SIZE} samples)\n16 Points: 4 from Each Agent Region', fontsize=14, fontweight='bold')
+            ax1.set_title(f'Agent {agent_idx+1}: Initial Training ({INIT_TRAIN_SIZE} samples)\n16 Points: 4 from Each Agent Region - FULL COVARIANCE', fontsize=14, fontweight='bold')
             ax1.grid(True, alpha=0.3)
             ax1.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize='xx-small', ncol=1)
-
+            
             # Format second subplot (Validation phase)
             ax2.set_xlabel('DAC Step', fontsize=13)
             ax2.set_ylabel('Variational Mean Value', fontsize=13)
-            ax2.set_title(f'Agent {agent_idx+1}: Validation ({INIT_TRAIN_SIZE + ADDITIONAL_DATA_SIZE} samples)\n16 Points: 4 from Each Agent Region', fontsize=14, fontweight='bold')
+            ax2.set_title(f'Agent {agent_idx+1}: Validation ({INIT_TRAIN_SIZE + ADDITIONAL_DATA_SIZE} samples)\n16 Points: 4 from Each Agent Region - FULL COVARIANCE', fontsize=14, fontweight='bold')
             ax2.grid(True, alpha=0.3)
             ax2.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize='xx-small', ncol=1)
             
             # Create color legend
             legend_text = """
+FULL COVARIANCE MATRIX CONSENSUS
 Color Coding by Agent Region:
 • Blues (Dark→Light): Agent 1's region  
 • Oranges (Dark→Light): Agent 2's region
@@ -610,18 +740,18 @@ Color Coding by Agent Region:
 Markers: ○=P1, □=P2, △=P3, ◇=P4
 Dashed lines = True values"""
             
-            plt.suptitle(f'Agent {agent_idx+1}: Initial vs Validation DAC Evolution - 16 REPRESENTATIVE POINTS\n{legend_text}', 
+            plt.suptitle(f'Agent {agent_idx+1}: FULL COVARIANCE CONSENSUS - 16 REPRESENTATIVE POINTS\n{legend_text}', 
                         fontsize=15, fontweight='bold')
             plt.tight_layout()
-            plt.savefig(f'{validation_dir}/agent_{agent_idx+1}_initial_vs_validation_16points_gradient.png', 
+            plt.savefig(f'{validation_dir}/agent_{agent_idx+1}_full_covariance_16points_gradient.png', 
                        bbox_inches='tight', dpi=150)
             plt.close()
             
             plot_time = time.time() - plot_start_time
             plot_count += 1
-            print(f"Agent {agent_idx+1} gradient plot saved with 16 points (4 from each region) ({plot_time:.2f}s)")
+            print(f"Agent {agent_idx+1} FULL COVARIANCE plot saved ({plot_time:.2f}s)")
     
-    print(f"All {plot_count} plots generated successfully")
+    print(f"All {plot_count} FULL COVARIANCE plots generated successfully")
 
 create_all_plots()
 
@@ -629,21 +759,23 @@ create_all_plots()
 # FINAL SUMMARY AND CLEANUP
 # ============================================================================
 print(f"\n" + "=" * 60)
-print("EXPERIMENT SUMMARY")
+print("EXPERIMENT SUMMARY - FULL COVARIANCE MATRIX CONSENSUS")
 print("=" * 60)
 
 print(f"All results saved to: {validation_dir}")
 print(f"Files created:")
-print(f"  - experiment_log_*.txt (this log file)")
-print(f"  - hyperparameters_history.csv")
-print(f"  - agent_*_initial_evolution.csv")
-print(f"  - agent_*_validation_evolution.csv")
-print(f"  - agent_*_initial_vs_validation.png")
+print(f"  - experiment_log_full_covariance_*.txt (this log file)")
+print(f"  - hyperparameters_history_full_covariance.csv")
+print(f"  - agent_*_initial_evolution_full_covariance.csv")
+print(f"  - agent_*_validation_evolution_full_covariance.csv")
+print(f"  - agent_*_initial_covariance_evolution.csv")  # NEW
+print(f"  - agent_*_validation_covariance_evolution.csv")  # NEW
+print(f"  - agent_*_full_covariance_16points_gradient.png")
 
-print(f"\nExperiment completed successfully!")
+print(f"\nFULL COVARIANCE MATRIX CONSENSUS experiment completed successfully!")
 
 # Close logger and restore stdout
 sys.stdout = logger.terminal
 logger.close()
 
-print(f"\nLog file saved to: {log_file_path}")
+print(f"\nFull covariance log file saved to: {log_file_path}")

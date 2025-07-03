@@ -56,14 +56,19 @@ class Agent:
     def inject_consensus_to_variational(self):
         M = self.model.variational_strategy.inducing_points.size(0)
         device = self.device
-        # Set variational mean
+        # Ensure consensus_mean is shape (M,)
+        mean = np.asarray(self.consensus_mean).reshape(-1)
+        assert mean.shape[0] == M, f"consensus_mean shape {mean.shape} does not match #inducing {M}"
         self.model.variational_strategy._variational_distribution.variational_mean.data = \
-            torch.tensor(self.consensus_mean, dtype=torch.float32, device=device)
-        # Set variational covariance (Cholesky factor)
-        if self.consensus_var.ndim == 1:
-            chol = torch.diag(torch.sqrt(torch.tensor(self.consensus_var, dtype=torch.float32, device=device)))
+            torch.tensor(mean, dtype=torch.float32, device=device)
+        # Ensure consensus_var is (M,) or (M, M)
+        var = np.asarray(self.consensus_var)
+        if var.ndim == 1:
+            assert var.shape[0] == M, f"consensus_var shape {var.shape} does not match #inducing {M}"
+            chol = torch.diag(torch.sqrt(torch.tensor(var, dtype=torch.float32, device=device)))
         else:
-            chol = torch.linalg.cholesky(torch.tensor(self.consensus_var, dtype=torch.float32, device=device))
+            assert var.shape == (M, M), f"consensus_var shape {var.shape} does not match ({M},{M})"
+            chol = torch.linalg.cholesky(torch.tensor(var, dtype=torch.float32, device=device))
         self.model.variational_strategy._variational_distribution.chol_variational_covar.data = chol
 
     def evaluate_rmse(self, test_x, test_y):
