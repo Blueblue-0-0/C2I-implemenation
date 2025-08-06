@@ -1,0 +1,36 @@
+MULTIMODAL EXPERIMENT - R2-FOCUSED SUMMARY
+================================================================================
+PRIMARY METRIC: R2 Score
+SECONDARY METRIC: MSE
+
+BASELINE VSGP (Centralized):
+  R2 Score: 0.978588 (PRIMARY)
+  MSE: 0.055299 (secondary)
+  Training Data: all_data
+  Coverage: 1.0
+
+Standard Dac (Distributed):
+  R2 Score: -1.713425 → 0.797750 (PRIMARY)
+  R2 Improvement: +2.511174 (+146.56%)
+  MSE: 7.007571 → 0.522323 (secondary)
+  MSE Improvement: 92.55%
+  Final Data Size: 964
+  Total Stages: 19
+  Final Coverage: 0.6281
+
+Weighted Dac Poe (Distributed):
+  R2 Score: -1.695374 → 0.798615 (PRIMARY)
+  R2 Improvement: +2.493988 (+147.11%)
+  MSE: 6.960954 → 0.520089 (secondary)
+  MSE Improvement: 92.53%
+  Final Data Size: 964
+  Total Stages: 19
+  Final Coverage: 0.6284
+
+METHOD RANKING (by R2 Score - PRIMARY METRIC):
+  #1: Baseline_VSGP - R2 = 0.978588
+  #2: Weighted_DAC_PoE - R2 = 0.798615
+  #3: Standard_DAC - R2 = 0.797750
+
+BEST PERFORMING METHOD: Baseline_VSGP
+BEST R2 SCORE: 0.978588

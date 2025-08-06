@@ -1,0 +1,36 @@
+POLYNOMIAL EXPERIMENT - R2-FOCUSED SUMMARY
+================================================================================
+PRIMARY METRIC: R2 Score
+SECONDARY METRIC: MSE
+
+BASELINE VSGP (Centralized):
+  R2 Score: 0.974546 (PRIMARY)
+  MSE: 0.641679 (secondary)
+  Training Data: all_data
+  Coverage: 0.98
+
+Standard Dac (Distributed):
+  R2 Score: -1.122351 → 0.920000 (PRIMARY)
+  R2 Improvement: +2.042351 (+181.97%)
+  MSE: 53.503684 → 2.016776 (secondary)
+  MSE Improvement: 96.23%
+  Final Data Size: 595
+  Total Stages: 19
+  Final Coverage: 0.1935
+
+Weighted Dac Poe (Distributed):
+  R2 Score: -1.120661 → 0.922102 (PRIMARY)
+  R2 Improvement: +2.042763 (+182.28%)
+  MSE: 53.461072 → 1.963772 (secondary)
+  MSE Improvement: 96.33%
+  Final Data Size: 595
+  Total Stages: 19
+  Final Coverage: 0.1985
+
+METHOD RANKING (by R2 Score - PRIMARY METRIC):
+  #1: Baseline_VSGP - R2 = 0.974546
+  #2: Weighted_DAC_PoE - R2 = 0.922102
+  #3: Standard_DAC - R2 = 0.920000
+
+BEST PERFORMING METHOD: Baseline_VSGP
+BEST R2 SCORE: 0.974546

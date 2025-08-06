@@ -1,0 +1,889 @@
+
+================================================================================
+DISTRIBUTED GP CONSENSUS EXPERIMENT LOG - FULL COVARIANCE MATRIX
+================================================================================
+Start Time: 2025-07-24 13:59:36
+Configuration:
+  - Number of Agents: 4
+  - Initial Training Size: 500
+  - Additional Data Size: 500
+  - Training Iterations: 500
+  - Consensus Steps: 5
+  - Device: cpu
+  - Consensus Type: FULL COVARIANCE MATRIX
+================================================================================
+
+[    0.00s] Loading agent data and inducing points...
+[    0.07s] DATA SUMMARY - FULL COVARIANCE CONSENSUS:
+[    0.07s]   - Total inducing points: 100
+[    0.07s]   - Initial training size per agent: 500
+[    0.07s]   - Additional data size per agent: 500
+[    0.07s]   - Training iterations per agent: 500
+[    0.07s]   - Consensus type: FULL COVARIANCE MATRIX
+
+[    0.07s] AGENT-SPECIFIC INDUCING POINTS:
+[    0.07s]   - Agent 1: 25 inducing points
+[    0.07s]   - Agent 2: 25 inducing points
+[    0.07s]   - Agent 3: 25 inducing points
+[    0.07s]   - Agent 4: 25 inducing points
+
+[    0.07s] ============================================================
+[    0.07s] PHASE 1: INITIAL TRAINING AND FULL COVARIANCE DAC
+[    0.07s] ============================================================
+
+[    0.07s] Starting Agent Initialization and Training...
+
+[    0.07s] INITIALIZING Agent 0...
+[    0.92s] TRAINING Agent 0 (initial) with 500 iterations...
+[    9.05s] Agent 0 training completed in 8.14s (total: 8.98s)
+
+[    9.05s] INITIALIZING Agent 1...
+[    9.06s] TRAINING Agent 1 (initial) with 500 iterations...
+[   15.04s] Agent 1 training completed in 5.99s (total: 5.99s)
+
+[   15.04s] INITIALIZING Agent 2...
+[   15.05s] TRAINING Agent 2 (initial) with 500 iterations...
+[   20.96s] Agent 2 training completed in 5.91s (total: 5.92s)
+
+[   20.96s] INITIALIZING Agent 3...
+[   20.96s] TRAINING Agent 3 (initial) with 500 iterations...
+[   26.74s] Agent 3 training completed in 5.78s (total: 5.78s)
+[   26.74s] Agent Initialization and Training completed in 26.67 seconds
+
+[   26.74s] STORING initial hyperparameters (pre-DAC)...
+
+[   26.77s] SETTING UP DAC consensus (ring topology)...
+[   26.77s] DAC consensus matrix configured (alpha=0.2)
+
+[   26.77s] Starting Initial DAC Consensus with Full Covariance...
+
+[   26.77s] RUNNING initial DAC consensus with FULL covariance matrix...
+
+[   26.77s] INITIAL DAC Step 1/5...
+[   26.77s]   Applying consensus to 100×100 covariance elements...
+[   26.77s]     Progress: 100/5050 elements (2.0%)
+[   26.78s]     Progress: 200/5050 elements (4.0%)
+[   26.78s]     Progress: 300/5050 elements (5.9%)
+[   26.79s]     Progress: 400/5050 elements (7.9%)
+[   26.79s]     Progress: 500/5050 elements (9.9%)
+[   26.80s]     Progress: 600/5050 elements (11.9%)
+[   26.80s]     Progress: 700/5050 elements (13.9%)
+[   26.80s]     Progress: 800/5050 elements (15.8%)
+[   26.81s]     Progress: 900/5050 elements (17.8%)
+[   26.81s]     Progress: 1000/5050 elements (19.8%)
+[   26.82s]     Progress: 1100/5050 elements (21.8%)
+[   26.82s]     Progress: 1200/5050 elements (23.8%)
+[   26.82s]     Progress: 1300/5050 elements (25.7%)
+[   26.83s]     Progress: 1400/5050 elements (27.7%)
+[   26.83s]     Progress: 1500/5050 elements (29.7%)
+[   26.83s]     Progress: 1600/5050 elements (31.7%)
+[   26.84s]     Progress: 1700/5050 elements (33.7%)
+[   26.84s]     Progress: 1800/5050 elements (35.6%)
+[   26.84s]     Progress: 1900/5050 elements (37.6%)
+[   26.85s]     Progress: 2000/5050 elements (39.6%)
+[   26.85s]     Progress: 2100/5050 elements (41.6%)
+[   26.86s]     Progress: 2200/5050 elements (43.6%)
+[   26.86s]     Progress: 2300/5050 elements (45.5%)
+[   26.86s]     Progress: 2400/5050 elements (47.5%)
+[   26.87s]     Progress: 2500/5050 elements (49.5%)
+[   26.87s]     Progress: 2600/5050 elements (51.5%)
+[   26.87s]     Progress: 2700/5050 elements (53.5%)
+[   26.88s]     Progress: 2800/5050 elements (55.4%)
+[   26.88s]     Progress: 2900/5050 elements (57.4%)
+[   26.88s]     Progress: 3000/5050 elements (59.4%)
+[   26.89s]     Progress: 3100/5050 elements (61.4%)
+[   26.89s]     Progress: 3200/5050 elements (63.4%)
+[   26.89s]     Progress: 3300/5050 elements (65.3%)
+[   26.90s]     Progress: 3400/5050 elements (67.3%)
+[   26.90s]     Progress: 3500/5050 elements (69.3%)
+[   26.90s]     Progress: 3600/5050 elements (71.3%)
+[   26.91s]     Progress: 3700/5050 elements (73.3%)
+[   26.91s]     Progress: 3800/5050 elements (75.2%)
+[   26.91s]     Progress: 3900/5050 elements (77.2%)
+[   26.92s]     Progress: 4000/5050 elements (79.2%)
+[   26.92s]     Progress: 4100/5050 elements (81.2%)
+[   26.92s]     Progress: 4200/5050 elements (83.2%)
+[   26.93s]     Progress: 4300/5050 elements (85.1%)
+[   26.93s]     Progress: 4400/5050 elements (87.1%)
+[   26.93s]     Progress: 4500/5050 elements (89.1%)
+[   26.94s]     Progress: 4600/5050 elements (91.1%)
+[   26.94s]     Progress: 4700/5050 elements (93.1%)
+[   26.94s]     Progress: 4800/5050 elements (95.0%)
+[   26.94s]     Progress: 4900/5050 elements (97.0%)
+[   26.95s]     Progress: 5000/5050 elements (99.0%)
+[   26.95s] Agent 0: Updated FULL mean and covariance from consensus
+[   26.95s] Agent 1: Updated FULL mean and covariance from consensus
+[   26.95s] Agent 2: Updated FULL mean and covariance from consensus
+[   26.95s] Agent 3: Updated FULL mean and covariance from consensus
+[   26.95s]   DAC Step 1 completed in 0.18s
+
+[   26.95s] INITIAL DAC Step 2/5...
+[   26.95s]   Applying consensus to 100×100 covariance elements...
+[   26.95s]     Progress: 100/5050 elements (2.0%)
+[   26.96s]     Progress: 200/5050 elements (4.0%)
+[   26.96s]     Progress: 300/5050 elements (5.9%)
+[   26.96s]     Progress: 400/5050 elements (7.9%)
+[   26.96s]     Progress: 500/5050 elements (9.9%)
+[   26.96s]     Progress: 600/5050 elements (11.9%)
+[   26.97s]     Progress: 700/5050 elements (13.9%)
+[   26.97s]     Progress: 800/5050 elements (15.8%)
+[   26.97s]     Progress: 900/5050 elements (17.8%)
+[   26.97s]     Progress: 1000/5050 elements (19.8%)
+[   26.98s]     Progress: 1100/5050 elements (21.8%)
+[   26.98s]     Progress: 1200/5050 elements (23.8%)
+[   26.98s]     Progress: 1300/5050 elements (25.7%)
+[   26.99s]     Progress: 1400/5050 elements (27.7%)
+[   26.99s]     Progress: 1500/5050 elements (29.7%)
+[   26.99s]     Progress: 1600/5050 elements (31.7%)
+[   26.99s]     Progress: 1700/5050 elements (33.7%)
+[   27.00s]     Progress: 1800/5050 elements (35.6%)
+[   27.00s]     Progress: 1900/5050 elements (37.6%)
+[   27.00s]     Progress: 2000/5050 elements (39.6%)
+[   27.00s]     Progress: 2100/5050 elements (41.6%)
+[   27.01s]     Progress: 2200/5050 elements (43.6%)
+[   27.01s]     Progress: 2300/5050 elements (45.5%)
+[   27.01s]     Progress: 2400/5050 elements (47.5%)
+[   27.01s]     Progress: 2500/5050 elements (49.5%)
+[   27.02s]     Progress: 2600/5050 elements (51.5%)
+[   27.02s]     Progress: 2700/5050 elements (53.5%)
+[   27.02s]     Progress: 2800/5050 elements (55.4%)
+[   27.02s]     Progress: 2900/5050 elements (57.4%)
+[   27.02s]     Progress: 3000/5050 elements (59.4%)
+[   27.03s]     Progress: 3100/5050 elements (61.4%)
+[   27.03s]     Progress: 3200/5050 elements (63.4%)
+[   27.03s]     Progress: 3300/5050 elements (65.3%)
+[   27.03s]     Progress: 3400/5050 elements (67.3%)
+[   27.04s]     Progress: 3500/5050 elements (69.3%)
+[   27.04s]     Progress: 3600/5050 elements (71.3%)
+[   27.04s]     Progress: 3700/5050 elements (73.3%)
+[   27.04s]     Progress: 3800/5050 elements (75.2%)
+[   27.04s]     Progress: 3900/5050 elements (77.2%)
+[   27.05s]     Progress: 4000/5050 elements (79.2%)
+[   27.05s]     Progress: 4100/5050 elements (81.2%)
+[   27.06s]     Progress: 4200/5050 elements (83.2%)
+[   27.06s]     Progress: 4300/5050 elements (85.1%)
+[   27.06s]     Progress: 4400/5050 elements (87.1%)
+[   27.06s]     Progress: 4500/5050 elements (89.1%)
+[   27.07s]     Progress: 4600/5050 elements (91.1%)
+[   27.07s]     Progress: 4700/5050 elements (93.1%)
+[   27.07s]     Progress: 4800/5050 elements (95.0%)
+[   27.07s]     Progress: 4900/5050 elements (97.0%)
+[   27.07s]     Progress: 5000/5050 elements (99.0%)
+[   27.08s] Agent 0: Updated FULL mean and covariance from consensus
+[   27.08s] Agent 1: Updated FULL mean and covariance from consensus
+[   27.08s] Agent 2: Updated FULL mean and covariance from consensus
+[   27.08s] Agent 3: Updated FULL mean and covariance from consensus
+[   27.08s]   DAC Step 2 completed in 0.13s
+
+[   27.08s] INITIAL DAC Step 3/5...
+[   27.08s]   Applying consensus to 100×100 covariance elements...
+[   27.08s]     Progress: 100/5050 elements (2.0%)
+[   27.08s]     Progress: 200/5050 elements (4.0%)
+[   27.09s]     Progress: 300/5050 elements (5.9%)
+[   27.09s]     Progress: 400/5050 elements (7.9%)
+[   27.09s]     Progress: 500/5050 elements (9.9%)
+[   27.09s]     Progress: 600/5050 elements (11.9%)
+[   27.10s]     Progress: 700/5050 elements (13.9%)
+[   27.10s]     Progress: 800/5050 elements (15.8%)
+[   27.11s]     Progress: 900/5050 elements (17.8%)
+[   27.11s]     Progress: 1000/5050 elements (19.8%)
+[   27.11s]     Progress: 1100/5050 elements (21.8%)
+[   27.11s]     Progress: 1200/5050 elements (23.8%)
+[   27.12s]     Progress: 1300/5050 elements (25.7%)
+[   27.12s]     Progress: 1400/5050 elements (27.7%)
+[   27.12s]     Progress: 1500/5050 elements (29.7%)
+[   27.12s]     Progress: 1600/5050 elements (31.7%)
+[   27.12s]     Progress: 1700/5050 elements (33.7%)
+[   27.13s]     Progress: 1800/5050 elements (35.6%)
+[   27.13s]     Progress: 1900/5050 elements (37.6%)
+[   27.13s]     Progress: 2000/5050 elements (39.6%)
+[   27.13s]     Progress: 2100/5050 elements (41.6%)
+[   27.14s]     Progress: 2200/5050 elements (43.6%)
+[   27.14s]     Progress: 2300/5050 elements (45.5%)
+[   27.14s]     Progress: 2400/5050 elements (47.5%)
+[   27.15s]     Progress: 2500/5050 elements (49.5%)
+[   27.15s]     Progress: 2600/5050 elements (51.5%)
+[   27.15s]     Progress: 2700/5050 elements (53.5%)
+[   27.16s]     Progress: 2800/5050 elements (55.4%)
+[   27.16s]     Progress: 2900/5050 elements (57.4%)
+[   27.16s]     Progress: 3000/5050 elements (59.4%)
+[   27.17s]     Progress: 3100/5050 elements (61.4%)
+[   27.17s]     Progress: 3200/5050 elements (63.4%)
+[   27.17s]     Progress: 3300/5050 elements (65.3%)
+[   27.18s]     Progress: 3400/5050 elements (67.3%)
+[   27.18s]     Progress: 3500/5050 elements (69.3%)
+[   27.18s]     Progress: 3600/5050 elements (71.3%)
+[   27.19s]     Progress: 3700/5050 elements (73.3%)
+[   27.19s]     Progress: 3800/5050 elements (75.2%)
+[   27.19s]     Progress: 3900/5050 elements (77.2%)
+[   27.20s]     Progress: 4000/5050 elements (79.2%)
+[   27.20s]     Progress: 4100/5050 elements (81.2%)
+[   27.20s]     Progress: 4200/5050 elements (83.2%)
+[   27.21s]     Progress: 4300/5050 elements (85.1%)
+[   27.21s]     Progress: 4400/5050 elements (87.1%)
+[   27.21s]     Progress: 4500/5050 elements (89.1%)
+[   27.22s]     Progress: 4600/5050 elements (91.1%)
+[   27.22s]     Progress: 4700/5050 elements (93.1%)
+[   27.22s]     Progress: 4800/5050 elements (95.0%)
+[   27.23s]     Progress: 4900/5050 elements (97.0%)
+[   27.23s]     Progress: 5000/5050 elements (99.0%)
+[   27.23s] Agent 0: Updated FULL mean and covariance from consensus
+[   27.23s] Agent 1: Updated FULL mean and covariance from consensus
+[   27.23s] Agent 2: Updated FULL mean and covariance from consensus
+[   27.23s] Agent 3: Updated FULL mean and covariance from consensus
+[   27.23s]   DAC Step 3 completed in 0.16s
+
+[   27.23s] INITIAL DAC Step 4/5...
+[   27.23s]   Applying consensus to 100×100 covariance elements...
+[   27.24s]     Progress: 100/5050 elements (2.0%)
+[   27.24s]     Progress: 200/5050 elements (4.0%)
+[   27.25s]     Progress: 300/5050 elements (5.9%)
+[   27.25s]     Progress: 400/5050 elements (7.9%)
+[   27.25s]     Progress: 500/5050 elements (9.9%)
+[   27.26s]     Progress: 600/5050 elements (11.9%)
+[   27.26s]     Progress: 700/5050 elements (13.9%)
+[   27.27s]     Progress: 800/5050 elements (15.8%)
+[   27.27s]     Progress: 900/5050 elements (17.8%)
+[   27.27s]     Progress: 1000/5050 elements (19.8%)
+[   27.27s]     Progress: 1100/5050 elements (21.8%)
+[   27.28s]     Progress: 1200/5050 elements (23.8%)
+[   27.28s]     Progress: 1300/5050 elements (25.7%)
+[   27.28s]     Progress: 1400/5050 elements (27.7%)
+[   27.29s]     Progress: 1500/5050 elements (29.7%)
+[   27.29s]     Progress: 1600/5050 elements (31.7%)
+[   27.29s]     Progress: 1700/5050 elements (33.7%)
+[   27.30s]     Progress: 1800/5050 elements (35.6%)
+[   27.30s]     Progress: 1900/5050 elements (37.6%)
+[   27.30s]     Progress: 2000/5050 elements (39.6%)
+[   27.31s]     Progress: 2100/5050 elements (41.6%)
+[   27.31s]     Progress: 2200/5050 elements (43.6%)
+[   27.31s]     Progress: 2300/5050 elements (45.5%)
+[   27.32s]     Progress: 2400/5050 elements (47.5%)
+[   27.32s]     Progress: 2500/5050 elements (49.5%)
+[   27.32s]     Progress: 2600/5050 elements (51.5%)
+[   27.33s]     Progress: 2700/5050 elements (53.5%)
+[   27.33s]     Progress: 2800/5050 elements (55.4%)
+[   27.33s]     Progress: 2900/5050 elements (57.4%)
+[   27.33s]     Progress: 3000/5050 elements (59.4%)
+[   27.34s]     Progress: 3100/5050 elements (61.4%)
+[   27.34s]     Progress: 3200/5050 elements (63.4%)
+[   27.34s]     Progress: 3300/5050 elements (65.3%)
+[   27.34s]     Progress: 3400/5050 elements (67.3%)
+[   27.35s]     Progress: 3500/5050 elements (69.3%)
+[   27.35s]     Progress: 3600/5050 elements (71.3%)
+[   27.35s]     Progress: 3700/5050 elements (73.3%)
+[   27.36s]     Progress: 3800/5050 elements (75.2%)
+[   27.36s]     Progress: 3900/5050 elements (77.2%)
+[   27.36s]     Progress: 4000/5050 elements (79.2%)
+[   27.37s]     Progress: 4100/5050 elements (81.2%)
+[   27.37s]     Progress: 4200/5050 elements (83.2%)
+[   27.37s]     Progress: 4300/5050 elements (85.1%)
+[   27.38s]     Progress: 4400/5050 elements (87.1%)
+[   27.38s]     Progress: 4500/5050 elements (89.1%)
+[   27.38s]     Progress: 4600/5050 elements (91.1%)
+[   27.39s]     Progress: 4700/5050 elements (93.1%)
+[   27.39s]     Progress: 4800/5050 elements (95.0%)
+[   27.39s]     Progress: 4900/5050 elements (97.0%)
+[   27.40s]     Progress: 5000/5050 elements (99.0%)
+[   27.40s] Agent 0: Updated FULL mean and covariance from consensus
+[   27.40s] Agent 1: Updated FULL mean and covariance from consensus
+[   27.40s] Agent 2: Updated FULL mean and covariance from consensus
+[   27.40s] Agent 3: Updated FULL mean and covariance from consensus
+[   27.40s]   DAC Step 4 completed in 0.17s
+
+[   27.40s] INITIAL DAC Step 5/5...
+[   27.40s]   Applying consensus to 100×100 covariance elements...
+[   27.40s]     Progress: 100/5050 elements (2.0%)
+[   27.41s]     Progress: 200/5050 elements (4.0%)
+[   27.41s]     Progress: 300/5050 elements (5.9%)
+[   27.41s]     Progress: 400/5050 elements (7.9%)
+[   27.42s]     Progress: 500/5050 elements (9.9%)
+[   27.42s]     Progress: 600/5050 elements (11.9%)
+[   27.42s]     Progress: 700/5050 elements (13.9%)
+[   27.43s]     Progress: 800/5050 elements (15.8%)
+[   27.43s]     Progress: 900/5050 elements (17.8%)
+[   27.43s]     Progress: 1000/5050 elements (19.8%)
+[   27.43s]     Progress: 1100/5050 elements (21.8%)
+[   27.44s]     Progress: 1200/5050 elements (23.8%)
+[   27.44s]     Progress: 1300/5050 elements (25.7%)
+[   27.44s]     Progress: 1400/5050 elements (27.7%)
+[   27.45s]     Progress: 1500/5050 elements (29.7%)
+[   27.45s]     Progress: 1600/5050 elements (31.7%)
+[   27.45s]     Progress: 1700/5050 elements (33.7%)
+[   27.46s]     Progress: 1800/5050 elements (35.6%)
+[   27.46s]     Progress: 1900/5050 elements (37.6%)
+[   27.46s]     Progress: 2000/5050 elements (39.6%)
+[   27.47s]     Progress: 2100/5050 elements (41.6%)
+[   27.47s]     Progress: 2200/5050 elements (43.6%)
+[   27.47s]     Progress: 2300/5050 elements (45.5%)
+[   27.48s]     Progress: 2400/5050 elements (47.5%)
+[   27.48s]     Progress: 2500/5050 elements (49.5%)
+[   27.48s]     Progress: 2600/5050 elements (51.5%)
+[   27.49s]     Progress: 2700/5050 elements (53.5%)
+[   27.49s]     Progress: 2800/5050 elements (55.4%)
+[   27.49s]     Progress: 2900/5050 elements (57.4%)
+[   27.49s]     Progress: 3000/5050 elements (59.4%)
+[   27.50s]     Progress: 3100/5050 elements (61.4%)
+[   27.50s]     Progress: 3200/5050 elements (63.4%)
+[   27.50s]     Progress: 3300/5050 elements (65.3%)
+[   27.51s]     Progress: 3400/5050 elements (67.3%)
+[   27.51s]     Progress: 3500/5050 elements (69.3%)
+[   27.51s]     Progress: 3600/5050 elements (71.3%)
+[   27.52s]     Progress: 3700/5050 elements (73.3%)
+[   27.52s]     Progress: 3800/5050 elements (75.2%)
+[   27.52s]     Progress: 3900/5050 elements (77.2%)
+[   27.53s]     Progress: 4000/5050 elements (79.2%)
+[   27.53s]     Progress: 4100/5050 elements (81.2%)
+[   27.53s]     Progress: 4200/5050 elements (83.2%)
+[   27.54s]     Progress: 4300/5050 elements (85.1%)
+[   27.54s]     Progress: 4400/5050 elements (87.1%)
+[   27.54s]     Progress: 4500/5050 elements (89.1%)
+[   27.55s]     Progress: 4600/5050 elements (91.1%)
+[   27.55s]     Progress: 4700/5050 elements (93.1%)
+[   27.55s]     Progress: 4800/5050 elements (95.0%)
+[   27.56s]     Progress: 4900/5050 elements (97.0%)
+[   27.56s]     Progress: 5000/5050 elements (99.0%)
+[   27.56s] Agent 0: Updated FULL mean and covariance from consensus
+[   27.56s] Agent 1: Updated FULL mean and covariance from consensus
+[   27.56s] Agent 2: Updated FULL mean and covariance from consensus
+[   27.56s] Agent 3: Updated FULL mean and covariance from consensus
+[   27.56s]   DAC Step 5 completed in 0.16s
+[   27.56s] Initial DAC Consensus with Full Covariance completed in 0.80 seconds
+
+[   27.56s] STORING initial hyperparameters (post-DAC)...
+[   27.56s] Initial phase data converted to numpy arrays
+
+[   27.56s] ============================================================
+[   27.56s] PHASE 2: ONLINE LEARNING WITH STREAMING DATA AND FULL COVARIANCE DAC
+[   27.56s] ============================================================
+[   27.56s] ONLINE LEARNING CONFIGURATION:
+[   27.56s]   - Batch size: 50 points per batch
+[   27.56s]   - Training iterations per batch: 10
+[   27.56s]   - Total batches: 10
+[   27.56s]   - Total new data points: 500
+
+[   27.56s] Starting Online Learning with Streaming Data...
+
+[   27.56s] STARTING online learning with streaming data...
+
+[   27.56s] ========================================
+[   27.56s] ONLINE BATCH 1/10
+[   27.56s] ========================================
+[   27.57s] Agent 0: Added batch 1 (50 points)
+[   27.57s]   - Total data points: 550
+[   27.70s]   - Online training: 0.13s
+[   27.70s] Agent 1: Added batch 1 (50 points)
+[   27.70s]   - Total data points: 550
+[   27.81s]   - Online training: 0.11s
+[   27.81s] Agent 2: Added batch 1 (50 points)
+[   27.81s]   - Total data points: 550
+[   27.93s]   - Online training: 0.12s
+[   27.93s] Agent 3: Added batch 1 (50 points)
+[   27.93s]   - Total data points: 550
+[   28.06s]   - Online training: 0.12s
+
+[   28.06s] RUNNING DAC consensus after batch 1...
+[   28.06s]   Online DAC Step 1/5...
+[   28.22s] Agent 0: Updated FULL mean and covariance from consensus
+[   28.22s] Agent 1: Updated FULL mean and covariance from consensus
+[   28.22s] Agent 2: Updated FULL mean and covariance from consensus
+[   28.22s] Agent 3: Updated FULL mean and covariance from consensus
+[   28.22s]     Step 1 completed in 0.16s
+[   28.22s]   Online DAC Step 2/5...
+[   28.39s] Agent 0: Updated FULL mean and covariance from consensus
+[   28.39s] Agent 1: Updated FULL mean and covariance from consensus
+[   28.39s] Agent 2: Updated FULL mean and covariance from consensus
+[   28.39s] Agent 3: Updated FULL mean and covariance from consensus
+[   28.39s]   Online DAC Step 3/5...
+[   28.54s] Agent 0: Updated FULL mean and covariance from consensus
+[   28.54s] Agent 1: Updated FULL mean and covariance from consensus
+[   28.54s] Agent 2: Updated FULL mean and covariance from consensus
+[   28.55s] Agent 3: Updated FULL mean and covariance from consensus
+[   28.55s]     Step 3 completed in 0.15s
+[   28.55s]   Online DAC Step 4/5...
+[   28.68s] Agent 0: Updated FULL mean and covariance from consensus
+[   28.68s] Agent 1: Updated FULL mean and covariance from consensus
+[   28.68s] Agent 2: Updated FULL mean and covariance from consensus
+[   28.68s] Agent 3: Updated FULL mean and covariance from consensus
+[   28.68s]   Online DAC Step 5/5...
+[   28.82s] Agent 0: Updated FULL mean and covariance from consensus
+[   28.82s] Agent 1: Updated FULL mean and covariance from consensus
+[   28.82s] Agent 2: Updated FULL mean and covariance from consensus
+[   28.82s] Agent 3: Updated FULL mean and covariance from consensus
+[   28.82s]     Step 5 completed in 0.14s
+[   28.82s] Batch 1 completed in 1.26s
+
+[   28.82s] ========================================
+[   28.82s] ONLINE BATCH 2/10
+[   28.82s] ========================================
+[   28.82s] Agent 0: Added batch 2 (50 points)
+[   28.82s]   - Total data points: 600
+[   28.96s]   - Online training: 0.14s
+[   28.96s] Agent 1: Added batch 2 (50 points)
+[   28.96s]   - Total data points: 600
+[   29.08s]   - Online training: 0.12s
+[   29.08s] Agent 2: Added batch 2 (50 points)
+[   29.08s]   - Total data points: 600
+[   29.20s]   - Online training: 0.12s
+[   29.20s] Agent 3: Added batch 2 (50 points)
+[   29.20s]   - Total data points: 600
+[   29.32s]   - Online training: 0.12s
+
+[   29.32s] RUNNING DAC consensus after batch 2...
+[   29.33s]   Online DAC Step 1/5...
+[   29.50s] Agent 0: Updated FULL mean and covariance from consensus
+[   29.50s] Agent 1: Updated FULL mean and covariance from consensus
+[   29.50s] Agent 2: Updated FULL mean and covariance from consensus
+[   29.50s] Agent 3: Updated FULL mean and covariance from consensus
+[   29.50s]     Step 1 completed in 0.18s
+[   29.50s]   Online DAC Step 2/5...
+[   29.64s] Agent 0: Updated FULL mean and covariance from consensus
+[   29.64s] Agent 1: Updated FULL mean and covariance from consensus
+[   29.64s] Agent 2: Updated FULL mean and covariance from consensus
+[   29.64s] Agent 3: Updated FULL mean and covariance from consensus
+[   29.64s]   Online DAC Step 3/5...
+[   29.80s] Agent 0: Updated FULL mean and covariance from consensus
+[   29.80s] Agent 1: Updated FULL mean and covariance from consensus
+[   29.80s] Agent 2: Updated FULL mean and covariance from consensus
+[   29.80s] Agent 3: Updated FULL mean and covariance from consensus
+[   29.80s]     Step 3 completed in 0.16s
+[   29.80s]   Online DAC Step 4/5...
+[   29.94s] Agent 0: Updated FULL mean and covariance from consensus
+[   29.94s] Agent 1: Updated FULL mean and covariance from consensus
+[   29.95s] Agent 2: Updated FULL mean and covariance from consensus
+[   29.95s] Agent 3: Updated FULL mean and covariance from consensus
+[   29.95s]   Online DAC Step 5/5...
+[   30.10s] Agent 0: Updated FULL mean and covariance from consensus
+[   30.10s] Agent 1: Updated FULL mean and covariance from consensus
+[   30.10s] Agent 2: Updated FULL mean and covariance from consensus
+[   30.10s] Agent 3: Updated FULL mean and covariance from consensus
+[   30.10s]     Step 5 completed in 0.15s
+[   30.10s] Batch 2 completed in 1.28s
+
+[   30.10s] ========================================
+[   30.10s] ONLINE BATCH 3/10
+[   30.10s] ========================================
+[   30.10s] Agent 0: Added batch 3 (50 points)
+[   30.10s]   - Total data points: 650
+[   30.24s]   - Online training: 0.14s
+[   30.24s] Agent 1: Added batch 3 (50 points)
+[   30.24s]   - Total data points: 650
+[   30.36s]   - Online training: 0.12s
+[   30.36s] Agent 2: Added batch 3 (50 points)
+[   30.36s]   - Total data points: 650
+[   30.48s]   - Online training: 0.12s
+[   30.48s] Agent 3: Added batch 3 (50 points)
+[   30.48s]   - Total data points: 650
+[   30.60s]   - Online training: 0.12s
+
+[   30.60s] RUNNING DAC consensus after batch 3...
+[   30.61s]   Online DAC Step 1/5...
+[   30.78s] Agent 0: Updated FULL mean and covariance from consensus
+[   30.78s] Agent 1: Updated FULL mean and covariance from consensus
+[   30.78s] Agent 2: Updated FULL mean and covariance from consensus
+[   30.78s] Agent 3: Updated FULL mean and covariance from consensus
+[   30.78s]     Step 1 completed in 0.18s
+[   30.78s]   Online DAC Step 2/5...
+[   30.90s] Agent 0: Updated FULL mean and covariance from consensus
+[   30.90s] Agent 1: Updated FULL mean and covariance from consensus
+[   30.91s] Agent 2: Updated FULL mean and covariance from consensus
+[   30.91s] Agent 3: Updated FULL mean and covariance from consensus
+[   30.91s]   Online DAC Step 3/5...
+[   31.04s] Agent 0: Updated FULL mean and covariance from consensus
+[   31.04s] Agent 1: Updated FULL mean and covariance from consensus
+[   31.04s] Agent 2: Updated FULL mean and covariance from consensus
+[   31.04s] Agent 3: Updated FULL mean and covariance from consensus
+[   31.04s]     Step 3 completed in 0.13s
+[   31.04s]   Online DAC Step 4/5...
+[   31.20s] Agent 0: Updated FULL mean and covariance from consensus
+[   31.20s] Agent 1: Updated FULL mean and covariance from consensus
+[   31.20s] Agent 2: Updated FULL mean and covariance from consensus
+[   31.20s] Agent 3: Updated FULL mean and covariance from consensus
+[   31.20s]   Online DAC Step 5/5...
+[   31.36s] Agent 0: Updated FULL mean and covariance from consensus
+[   31.36s] Agent 1: Updated FULL mean and covariance from consensus
+[   31.36s] Agent 2: Updated FULL mean and covariance from consensus
+[   31.36s] Agent 3: Updated FULL mean and covariance from consensus
+[   31.36s]     Step 5 completed in 0.16s
+[   31.36s] Batch 3 completed in 1.26s
+
+[   31.36s] ========================================
+[   31.36s] ONLINE BATCH 4/10
+[   31.36s] ========================================
+[   31.36s] Agent 0: Added batch 4 (50 points)
+[   31.36s]   - Total data points: 700
+[   31.51s]   - Online training: 0.15s
+[   31.51s] Agent 1: Added batch 4 (50 points)
+[   31.51s]   - Total data points: 700
+[   31.64s]   - Online training: 0.13s
+[   31.64s] Agent 2: Added batch 4 (50 points)
+[   31.64s]   - Total data points: 700
+[   31.76s]   - Online training: 0.13s
+[   31.76s] Agent 3: Added batch 4 (50 points)
+[   31.76s]   - Total data points: 700
+[   31.89s]   - Online training: 0.13s
+
+[   31.89s] RUNNING DAC consensus after batch 4...
+[   31.89s]   Online DAC Step 1/5...
+[   32.07s] Agent 0: Updated FULL mean and covariance from consensus
+[   32.07s] Agent 1: Updated FULL mean and covariance from consensus
+[   32.07s] Agent 2: Updated FULL mean and covariance from consensus
+[   32.07s] Agent 3: Updated FULL mean and covariance from consensus
+[   32.07s]     Step 1 completed in 0.18s
+[   32.07s]   Online DAC Step 2/5...
+[   32.20s] Agent 0: Updated FULL mean and covariance from consensus
+[   32.20s] Agent 1: Updated FULL mean and covariance from consensus
+[   32.20s] Agent 2: Updated FULL mean and covariance from consensus
+[   32.20s] Agent 3: Updated FULL mean and covariance from consensus
+[   32.20s]   Online DAC Step 3/5...
+[   32.35s] Agent 0: Updated FULL mean and covariance from consensus
+[   32.35s] Agent 1: Updated FULL mean and covariance from consensus
+[   32.35s] Agent 2: Updated FULL mean and covariance from consensus
+[   32.35s] Agent 3: Updated FULL mean and covariance from consensus
+[   32.35s]     Step 3 completed in 0.16s
+[   32.35s]   Online DAC Step 4/5...
+[   32.50s] Agent 0: Updated FULL mean and covariance from consensus
+[   32.50s] Agent 1: Updated FULL mean and covariance from consensus
+[   32.50s] Agent 2: Updated FULL mean and covariance from consensus
+[   32.50s] Agent 3: Updated FULL mean and covariance from consensus
+[   32.50s]   Online DAC Step 5/5...
+[   32.66s] Agent 0: Updated FULL mean and covariance from consensus
+[   32.66s] Agent 1: Updated FULL mean and covariance from consensus
+[   32.66s] Agent 2: Updated FULL mean and covariance from consensus
+[   32.66s] Agent 3: Updated FULL mean and covariance from consensus
+[   32.66s]     Step 5 completed in 0.16s
+[   32.66s] Batch 4 completed in 1.30s
+
+[   32.66s] ========================================
+[   32.66s] ONLINE BATCH 5/10
+[   32.66s] ========================================
+[   32.66s] Agent 0: Added batch 5 (50 points)
+[   32.66s]   - Total data points: 750
+[   32.80s]   - Online training: 0.14s
+[   32.80s] Agent 1: Added batch 5 (50 points)
+[   32.80s]   - Total data points: 750
+[   32.91s]   - Online training: 0.12s
+[   32.91s] Agent 2: Added batch 5 (50 points)
+[   32.91s]   - Total data points: 750
+[   33.04s]   - Online training: 0.13s
+[   33.04s] Agent 3: Added batch 5 (50 points)
+[   33.04s]   - Total data points: 750
+[   33.17s]   - Online training: 0.13s
+
+[   33.17s] RUNNING DAC consensus after batch 5...
+[   33.17s]   Online DAC Step 1/5...
+[   33.36s] Agent 0: Updated FULL mean and covariance from consensus
+[   33.36s] Agent 1: Updated FULL mean and covariance from consensus
+[   33.36s] Agent 2: Updated FULL mean and covariance from consensus
+[   33.36s] Agent 3: Updated FULL mean and covariance from consensus
+[   33.36s]     Step 1 completed in 0.18s
+[   33.36s]   Online DAC Step 2/5...
+[   33.49s] Agent 0: Updated FULL mean and covariance from consensus
+[   33.49s] Agent 1: Updated FULL mean and covariance from consensus
+[   33.49s] Agent 2: Updated FULL mean and covariance from consensus
+[   33.49s] Agent 3: Updated FULL mean and covariance from consensus
+[   33.49s]   Online DAC Step 3/5...
+[   33.63s] Agent 0: Updated FULL mean and covariance from consensus
+[   33.63s] Agent 1: Updated FULL mean and covariance from consensus
+[   33.63s] Agent 2: Updated FULL mean and covariance from consensus
+[   33.63s] Agent 3: Updated FULL mean and covariance from consensus
+[   33.63s]     Step 3 completed in 0.14s
+[   33.63s]   Online DAC Step 4/5...
+[   33.79s] Agent 0: Updated FULL mean and covariance from consensus
+[   33.79s] Agent 1: Updated FULL mean and covariance from consensus
+[   33.79s] Agent 2: Updated FULL mean and covariance from consensus
+[   33.79s] Agent 3: Updated FULL mean and covariance from consensus
+[   33.79s]   Online DAC Step 5/5...
+[   33.95s] Agent 0: Updated FULL mean and covariance from consensus
+[   33.95s] Agent 1: Updated FULL mean and covariance from consensus
+[   33.95s] Agent 2: Updated FULL mean and covariance from consensus
+[   33.95s] Agent 3: Updated FULL mean and covariance from consensus
+[   33.95s]     Step 5 completed in 0.16s
+[   33.95s] Batch 5 completed in 1.29s
+
+[   33.95s] ========================================
+[   33.95s] ONLINE BATCH 6/10
+[   33.95s] ========================================
+[   33.95s] Agent 0: Added batch 6 (50 points)
+[   33.95s]   - Total data points: 800
+[   34.09s]   - Online training: 0.14s
+[   34.09s] Agent 1: Added batch 6 (50 points)
+[   34.09s]   - Total data points: 800
+[   34.21s]   - Online training: 0.12s
+[   34.21s] Agent 2: Added batch 6 (50 points)
+[   34.21s]   - Total data points: 800
+[   34.34s]   - Online training: 0.13s
+[   34.34s] Agent 3: Added batch 6 (50 points)
+[   34.34s]   - Total data points: 800
+[   34.47s]   - Online training: 0.13s
+
+[   34.47s] RUNNING DAC consensus after batch 6...
+[   34.47s]   Online DAC Step 1/5...
+[   34.65s] Agent 0: Updated FULL mean and covariance from consensus
+[   34.65s] Agent 1: Updated FULL mean and covariance from consensus
+[   34.65s] Agent 2: Updated FULL mean and covariance from consensus
+[   34.65s] Agent 3: Updated FULL mean and covariance from consensus
+[   34.65s]     Step 1 completed in 0.18s
+[   34.65s]   Online DAC Step 2/5...
+[   34.79s] Agent 0: Updated FULL mean and covariance from consensus
+[   34.79s] Agent 1: Updated FULL mean and covariance from consensus
+[   34.79s] Agent 2: Updated FULL mean and covariance from consensus
+[   34.79s] Agent 3: Updated FULL mean and covariance from consensus
+[   34.79s]   Online DAC Step 3/5...
+[   34.95s] Agent 0: Updated FULL mean and covariance from consensus
+[   34.95s] Agent 1: Updated FULL mean and covariance from consensus
+[   34.95s] Agent 2: Updated FULL mean and covariance from consensus
+[   34.95s] Agent 3: Updated FULL mean and covariance from consensus
+[   34.95s]     Step 3 completed in 0.16s
+[   34.95s]   Online DAC Step 4/5...
+[   35.12s] Agent 0: Updated FULL mean and covariance from consensus
+[   35.12s] Agent 1: Updated FULL mean and covariance from consensus
+[   35.12s] Agent 2: Updated FULL mean and covariance from consensus
+[   35.12s] Agent 3: Updated FULL mean and covariance from consensus
+[   35.12s]   Online DAC Step 5/5...
+[   35.26s] Agent 0: Updated FULL mean and covariance from consensus
+[   35.26s] Agent 1: Updated FULL mean and covariance from consensus
+[   35.26s] Agent 2: Updated FULL mean and covariance from consensus
+[   35.26s] Agent 3: Updated FULL mean and covariance from consensus
+[   35.26s]     Step 5 completed in 0.14s
+[   35.26s] Batch 6 completed in 1.31s
+
+[   35.26s] ========================================
+[   35.26s] ONLINE BATCH 7/10
+[   35.26s] ========================================
+[   35.26s] Agent 0: Added batch 7 (50 points)
+[   35.26s]   - Total data points: 850
+[   35.42s]   - Online training: 0.16s
+[   35.42s] Agent 1: Added batch 7 (50 points)
+[   35.42s]   - Total data points: 850
+[   35.56s]   - Online training: 0.14s
+[   35.56s] Agent 2: Added batch 7 (50 points)
+[   35.56s]   - Total data points: 850
+[   35.70s]   - Online training: 0.14s
+[   35.70s] Agent 3: Added batch 7 (50 points)
+[   35.70s]   - Total data points: 850
+[   35.83s]   - Online training: 0.13s
+
+[   35.83s] RUNNING DAC consensus after batch 7...
+[   35.83s]   Online DAC Step 1/5...
+[   36.02s] Agent 0: Updated FULL mean and covariance from consensus
+[   36.02s] Agent 1: Updated FULL mean and covariance from consensus
+[   36.02s] Agent 2: Updated FULL mean and covariance from consensus
+[   36.02s] Agent 3: Updated FULL mean and covariance from consensus
+[   36.02s]     Step 1 completed in 0.18s
+[   36.02s]   Online DAC Step 2/5...
+[   36.15s] Agent 0: Updated FULL mean and covariance from consensus
+[   36.15s] Agent 1: Updated FULL mean and covariance from consensus
+[   36.15s] Agent 2: Updated FULL mean and covariance from consensus
+[   36.15s] Agent 3: Updated FULL mean and covariance from consensus
+[   36.15s]   Online DAC Step 3/5...
+[   36.32s] Agent 0: Updated FULL mean and covariance from consensus
+[   36.32s] Agent 1: Updated FULL mean and covariance from consensus
+[   36.32s] Agent 2: Updated FULL mean and covariance from consensus
+[   36.32s] Agent 3: Updated FULL mean and covariance from consensus
+[   36.32s]     Step 3 completed in 0.17s
+[   36.32s]   Online DAC Step 4/5...
+[   36.46s] Agent 0: Updated FULL mean and covariance from consensus
+[   36.46s] Agent 1: Updated FULL mean and covariance from consensus
+[   36.46s] Agent 2: Updated FULL mean and covariance from consensus
+[   36.46s] Agent 3: Updated FULL mean and covariance from consensus
+[   36.46s]   Online DAC Step 5/5...
+[   36.61s] Agent 0: Updated FULL mean and covariance from consensus
+[   36.61s] Agent 1: Updated FULL mean and covariance from consensus
+[   36.61s] Agent 2: Updated FULL mean and covariance from consensus
+[   36.61s] Agent 3: Updated FULL mean and covariance from consensus
+[   36.61s]     Step 5 completed in 0.16s
+[   36.62s] Batch 7 completed in 1.36s
+
+[   36.62s] ========================================
+[   36.62s] ONLINE BATCH 8/10
+[   36.62s] ========================================
+[   36.62s] Agent 0: Added batch 8 (50 points)
+[   36.62s]   - Total data points: 900
+[   36.77s]   - Online training: 0.15s
+[   36.77s] Agent 1: Added batch 8 (50 points)
+[   36.77s]   - Total data points: 900
+[   36.89s]   - Online training: 0.12s
+[   36.89s] Agent 2: Added batch 8 (50 points)
+[   36.89s]   - Total data points: 900
+[   37.02s]   - Online training: 0.13s
+[   37.02s] Agent 3: Added batch 8 (50 points)
+[   37.02s]   - Total data points: 900
+[   37.15s]   - Online training: 0.13s
+
+[   37.15s] RUNNING DAC consensus after batch 8...
+[   37.16s]   Online DAC Step 1/5...
+[   37.34s] Agent 0: Updated FULL mean and covariance from consensus
+[   37.34s] Agent 1: Updated FULL mean and covariance from consensus
+[   37.34s] Agent 2: Updated FULL mean and covariance from consensus
+[   37.34s] Agent 3: Updated FULL mean and covariance from consensus
+[   37.34s]     Step 1 completed in 0.18s
+[   37.34s]   Online DAC Step 2/5...
+[   37.48s] Agent 0: Updated FULL mean and covariance from consensus
+[   37.48s] Agent 1: Updated FULL mean and covariance from consensus
+[   37.48s] Agent 2: Updated FULL mean and covariance from consensus
+[   37.48s] Agent 3: Updated FULL mean and covariance from consensus
+[   37.48s]   Online DAC Step 3/5...
+[   37.63s] Agent 0: Updated FULL mean and covariance from consensus
+[   37.63s] Agent 1: Updated FULL mean and covariance from consensus
+[   37.63s] Agent 2: Updated FULL mean and covariance from consensus
+[   37.63s] Agent 3: Updated FULL mean and covariance from consensus
+[   37.63s]     Step 3 completed in 0.15s
+[   37.63s]   Online DAC Step 4/5...
+[   37.77s] Agent 0: Updated FULL mean and covariance from consensus
+[   37.77s] Agent 1: Updated FULL mean and covariance from consensus
+[   37.77s] Agent 2: Updated FULL mean and covariance from consensus
+[   37.77s] Agent 3: Updated FULL mean and covariance from consensus
+[   37.77s]   Online DAC Step 5/5...
+[   37.92s] Agent 0: Updated FULL mean and covariance from consensus
+[   37.92s] Agent 1: Updated FULL mean and covariance from consensus
+[   37.92s] Agent 2: Updated FULL mean and covariance from consensus
+[   37.92s] Agent 3: Updated FULL mean and covariance from consensus
+[   37.92s]     Step 5 completed in 0.14s
+[   37.92s] Batch 8 completed in 1.30s
+
+[   37.92s] ========================================
+[   37.92s] ONLINE BATCH 9/10
+[   37.92s] ========================================
+[   37.92s] Agent 0: Added batch 9 (50 points)
+[   37.92s]   - Total data points: 950
+[   38.07s]   - Online training: 0.15s
+[   38.07s] Agent 1: Added batch 9 (50 points)
+[   38.07s]   - Total data points: 950
+[   38.19s]   - Online training: 0.12s
+[   38.19s] Agent 2: Added batch 9 (50 points)
+[   38.19s]   - Total data points: 950
+[   38.33s]   - Online training: 0.14s
+[   38.33s] Agent 3: Added batch 9 (50 points)
+[   38.33s]   - Total data points: 950
+[   38.46s]   - Online training: 0.14s
+
+[   38.46s] RUNNING DAC consensus after batch 9...
+[   38.47s]   Online DAC Step 1/5...
+[   38.65s] Agent 0: Updated FULL mean and covariance from consensus
+[   38.65s] Agent 1: Updated FULL mean and covariance from consensus
+[   38.65s] Agent 2: Updated FULL mean and covariance from consensus
+[   38.65s] Agent 3: Updated FULL mean and covariance from consensus
+[   38.65s]     Step 1 completed in 0.18s
+[   38.65s]   Online DAC Step 2/5...
+[   38.78s] Agent 0: Updated FULL mean and covariance from consensus
+[   38.78s] Agent 1: Updated FULL mean and covariance from consensus
+[   38.78s] Agent 2: Updated FULL mean and covariance from consensus
+[   38.78s] Agent 3: Updated FULL mean and covariance from consensus
+[   38.78s]   Online DAC Step 3/5...
+[   38.92s] Agent 0: Updated FULL mean and covariance from consensus
+[   38.92s] Agent 1: Updated FULL mean and covariance from consensus
+[   38.92s] Agent 2: Updated FULL mean and covariance from consensus
+[   38.92s] Agent 3: Updated FULL mean and covariance from consensus
+[   38.92s]     Step 3 completed in 0.14s
+[   38.92s]   Online DAC Step 4/5...
+[   39.07s] Agent 0: Updated FULL mean and covariance from consensus
+[   39.07s] Agent 1: Updated FULL mean and covariance from consensus
+[   39.07s] Agent 2: Updated FULL mean and covariance from consensus
+[   39.07s] Agent 3: Updated FULL mean and covariance from consensus
+[   39.07s]   Online DAC Step 5/5...
+[   39.22s] Agent 0: Updated FULL mean and covariance from consensus
+[   39.22s] Agent 1: Updated FULL mean and covariance from consensus
+[   39.22s] Agent 2: Updated FULL mean and covariance from consensus
+[   39.22s] Agent 3: Updated FULL mean and covariance from consensus
+[   39.22s]     Step 5 completed in 0.15s
+[   39.22s] Batch 9 completed in 1.30s
+
+[   39.22s] ========================================
+[   39.22s] ONLINE BATCH 10/10
+[   39.22s] ========================================
+[   39.22s] Agent 0: Added batch 10 (50 points)
+[   39.22s]   - Total data points: 1000
+[   39.38s]   - Online training: 0.16s
+[   39.38s] Agent 1: Added batch 10 (50 points)
+[   39.38s]   - Total data points: 1000
+[   39.51s]   - Online training: 0.13s
+[   39.51s] Agent 2: Added batch 10 (50 points)
+[   39.51s]   - Total data points: 1000
+[   39.65s]   - Online training: 0.14s
+[   39.65s] Agent 3: Added batch 10 (50 points)
+[   39.65s]   - Total data points: 1000
+[   39.79s]   - Online training: 0.14s
+
+[   39.79s] RUNNING DAC consensus after batch 10...
+[   39.79s]   Online DAC Step 1/5...
+[   39.97s] Agent 0: Updated FULL mean and covariance from consensus
+[   39.98s] Agent 1: Updated FULL mean and covariance from consensus
+[   39.98s] Agent 2: Updated FULL mean and covariance from consensus
+[   39.98s] Agent 3: Updated FULL mean and covariance from consensus
+[   39.98s]     Step 1 completed in 0.19s
+[   39.98s]   Online DAC Step 2/5...
+[   40.13s] Agent 0: Updated FULL mean and covariance from consensus
+[   40.13s] Agent 1: Updated FULL mean and covariance from consensus
+[   40.13s] Agent 2: Updated FULL mean and covariance from consensus
+[   40.13s] Agent 3: Updated FULL mean and covariance from consensus
+[   40.13s]   Online DAC Step 3/5...
+[   40.28s] Agent 0: Updated FULL mean and covariance from consensus
+[   40.28s] Agent 1: Updated FULL mean and covariance from consensus
+[   40.28s] Agent 2: Updated FULL mean and covariance from consensus
+[   40.28s] Agent 3: Updated FULL mean and covariance from consensus
+[   40.28s]     Step 3 completed in 0.15s
+[   40.28s]   Online DAC Step 4/5...
+[   40.42s] Agent 0: Updated FULL mean and covariance from consensus
+[   40.42s] Agent 1: Updated FULL mean and covariance from consensus
+[   40.43s] Agent 2: Updated FULL mean and covariance from consensus
+[   40.43s] Agent 3: Updated FULL mean and covariance from consensus
+[   40.43s]   Online DAC Step 5/5...
+[   40.58s] Agent 0: Updated FULL mean and covariance from consensus
+[   40.58s] Agent 1: Updated FULL mean and covariance from consensus
+[   40.58s] Agent 2: Updated FULL mean and covariance from consensus
+[   40.59s] Agent 3: Updated FULL mean and covariance from consensus
+[   40.59s]     Step 5 completed in 0.16s
+[   40.59s] Batch 10 completed in 1.37s
+[   40.59s] Online Learning with Streaming Data completed in 13.02 seconds
+
+[   40.59s] STORING final hyperparameters (post-online learning)...
+[   40.59s] Online learning phase completed with 10 batches
+
+[   40.59s] Starting Data Saving...
+
+[   40.59s] SAVING experiment data...
+[   40.62s] Hyperparameters saved to: project/train_record/test_2/hyperparameters_history_full_covariance.csv
+[   40.68s] Saving covariance evolution data...
+[   41.15s] Evolution data saved for all agents and phases
+[   41.15s] Data Saving completed in 0.56 seconds
+
+[   41.15s] Starting Plot Generation...
+
+[   41.15s] CREATING visualization plots for FULL COVARIANCE consensus...
+[   41.15s] Creating plots for Agent 1...
+[   41.15s] Agent 1: Plotting 16 points total
+[   42.96s] Agent 1 online learning plot saved (1.82s)
+[   42.96s] Creating plots for Agent 2...
+[   42.96s] Agent 2: Plotting 16 points total
+[   44.52s] Agent 2 online learning plot saved (1.56s)
+[   44.52s] Creating plots for Agent 3...
+[   44.52s] Agent 3: Plotting 16 points total
+[   45.99s] Agent 3 online learning plot saved (1.47s)
+[   45.99s] Creating plots for Agent 4...
+[   45.99s] Agent 4: Plotting 16 points total
+[   47.50s] Agent 4 online learning plot saved (1.51s)
+[   47.50s] All 4 online learning plots generated successfully
+[   47.50s] Plot Generation completed in 6.35 seconds
+
+[   47.50s] ============================================================
+[   47.50s] EXPERIMENT SUMMARY - FULL COVARIANCE MATRIX CONSENSUS
+[   47.50s] ============================================================
+[   47.50s] All results saved to: project/train_record/test_2
+[   47.50s] Files created:
+[   47.50s]   - experiment_log_full_covariance_*.txt (this log file)
+[   47.50s]   - hyperparameters_history_full_covariance.csv
+[   47.50s]   - agent_*_initial_evolution_full_covariance.csv
+[   47.50s]   - agent_*_validation_evolution_full_covariance.csv
+[   47.50s]   - agent_*_initial_covariance_evolution.csv
+[   47.50s]   - agent_*_validation_covariance_evolution.csv
+[   47.50s]   - agent_*_full_covariance_16points_gradient.png
+
+[   47.50s] FULL COVARIANCE MATRIX CONSENSUS experiment completed successfully!
+
+
+================================================================================
+EXPERIMENT COMPLETED - FULL COVARIANCE MATRIX
+End Time: 2025-07-24 14:00:24
+Total Runtime: 47.50 seconds (0.79 minutes)
+================================================================================

@@ -9,8 +9,8 @@ INDUCING_PER_AGENT = 25  # Change this to 8, 25, etc.
 
 # Load the data
 data = loadmat('e:/TUM/RCI-S5-SS25/GP/Practice/dataset/KIN40K/KIN40K_train.mat')
-x = data['x']  # shape (10000, 8)
-y = data['y']  # shape (10000, 1)
+x = data['xtest']  
+y = data['ytest'] 
 
 # Compute medians for the first two columns
 med0 = np.median(x[:, 0])

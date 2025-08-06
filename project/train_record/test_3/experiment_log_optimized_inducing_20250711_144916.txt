@@ -1,0 +1,31 @@
+
+================================================================================
+DISTRIBUTED GP CONSENSUS EXPERIMENT LOG - OPTIMIZED INDUCING POINTS
+================================================================================
+Start Time: 2025-07-11 14:49:16
+Configuration:
+  - Number of Agents: 4
+  - Initial Training Size: 500
+  - Additional Data Size: 200
+  - Training Iterations: 500
+  - Consensus Steps: 5
+  - Device: cpu
+  - Inducing Points: OPTIMIZED (128 shared locations per agent)
+  - Consensus Type: FULL COVARIANCE MATRIX
+================================================================================
+
+[    0.00s] Loading agent data and optimized inducing points...
+[    0.04s] Loading OPTIMIZED inducing points from project/data/KIN40K_inducing_optimized.csv...
+[    0.04s] Optimized inducing points loaded successfully:
+[    0.04s]   - Shape: (128, 11)
+[    0.04s]   - Columns: ['agent_idx', 'inducing_idx', 'x0', 'x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7', 'y']
+[    0.04s] SHARED INDUCING POINTS CONFIGURATION:
+[    0.04s]   - Each agent uses ALL 128 inducing points
+[    0.04s]   - Same inducing locations shared across all agents
+[    0.04s]   - Original agent regions preserved for plotting purposes
+
+[    0.04s] Starting Test Data Loading...
+[    0.04s] Loading test data from dataset/KIN40K/KIN40K_test.mat...
+[    0.04s] ERROR: Test data file not found at dataset/KIN40K/KIN40K_test.mat
+[    0.04s] Please ensure the test data file exists and the path is correct.
+[    0.05s] <<<PYTHON-EXEC-OUTPUT

@@ -1,0 +1,77 @@
+
+================================================================================
+DISTRIBUTED GP CONSENSUS EXPERIMENT LOG - OPTIMIZED INDUCING POINTS
+================================================================================
+Start Time: 2025-07-11 14:22:31
+Configuration:
+  - Number of Agents: 4
+  - Initial Training Size: 500
+  - Additional Data Size: 200
+  - Training Iterations: 500
+  - Consensus Steps: 5
+  - Device: cpu
+  - Inducing Points: OPTIMIZED (128 shared locations per agent)
+  - Consensus Type: FULL COVARIANCE MATRIX
+================================================================================
+
+[    0.00s] Loading agent data and optimized inducing points...
+[    0.04s] Loading OPTIMIZED inducing points from project/data/KIN40K_inducing_optimized.csv...
+[    0.04s] Optimized inducing points loaded successfully:
+[    0.04s]   - Shape: (128, 11)
+[    0.04s]   - Columns: ['agent_idx', 'inducing_idx', 'x0', 'x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7', 'y']
+[    0.04s] SHARED INDUCING POINTS CONFIGURATION:
+[    0.04s]   - Each agent uses ALL 128 inducing points
+[    0.04s]   - Same inducing locations shared across all agents
+[    0.04s]   - Original agent regions preserved for plotting purposes
+
+[    0.04s] Starting Test Data Loading...
+[    0.04s] Loading test data from dataset/KIN40K/KIN40K_test.mat...
+[    0.06s] Available keys in test data: ['__header__', '__version__', '__globals__', 'xtest', 'ytest']
+[    0.06s] Data keys found: ['xtest', 'ytest']
+[    0.06s] Test data loaded successfully:
+[    0.06s]   - Test X shape: (30000, 8)
+[    0.06s]   - Test Y shape: (30000, 1)
+[    0.06s]   - Test X range: [-1.7445, 1.7445]
+[    0.06s]   - Test Y range: [-3.9452, 3.2406]
+[    0.06s] Test Data Loading completed in 0.02 seconds
+[    0.06s] DATA SUMMARY - OPTIMIZED SHARED INDUCING POINTS CONSENSUS:
+[    0.06s]   - Total inducing points per agent: 128 (SHARED LOCATIONS)
+[    0.06s]   - Initial training size per agent: 500
+[    0.06s]   - Additional data size per agent: 200
+[    0.06s]   - Training iterations per agent: 500
+[    0.06s]   - Test data size: 30000
+[    0.06s]   - Consensus type: FULL COVARIANCE MATRIX
+
+[    0.07s] ================================================================================
+[    0.07s] STAGE 1: INITIAL TRAINING (500 samples per agent)
+[    0.07s] ================================================================================
+
+[    0.07s] Starting Agent Initialization and Training...
+
+[    0.07s] INITIALIZING Agent 0 with SHARED OPTIMIZED inducing points...
+[    0.07s] TRAINING Agent 0 (initial) with 500 iterations...
+[    6.89s] Agent 0 training completed in 6.82s (total: 6.83s)
+
+[    6.89s] INITIALIZING Agent 1 with SHARED OPTIMIZED inducing points...
+[    6.90s] TRAINING Agent 1 (initial) with 500 iterations...
+[   13.68s] Agent 1 training completed in 6.78s (total: 6.79s)
+
+[   13.68s] INITIALIZING Agent 2 with SHARED OPTIMIZED inducing points...
+[   13.68s] TRAINING Agent 2 (initial) with 500 iterations...
+[   20.49s] Agent 2 training completed in 6.81s (total: 6.81s)
+
+[   20.49s] INITIALIZING Agent 3 with SHARED OPTIMIZED inducing points...
+[   20.49s] TRAINING Agent 3 (initial) with 500 iterations...
+[   27.31s] Agent 3 training completed in 6.82s (total: 6.82s)
+[   27.31s] Agent Initialization and Training completed in 27.25 seconds
+
+[   27.31s] STORING initial hyperparameters...
+
+[   27.32s] ============================================================
+[   27.32s] STAGE 1 EVALUATION: After Initial Training
+[   27.32s] ============================================================
+
+[   27.32s] Starting Model Evaluation...
+
+[   27.32s] Evaluating Agent 1 on test data at stage: after_initial_training
+[   27.49s] <<<PYTHON-EXEC-OUTPUT

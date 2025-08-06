@@ -1,0 +1,36 @@
+SINUSOIDAL EXPERIMENT - R2-FOCUSED SUMMARY
+================================================================================
+PRIMARY METRIC: R2 Score
+SECONDARY METRIC: MSE
+
+BASELINE VSGP (Centralized):
+  R2 Score: 0.996396 (PRIMARY)
+  MSE: 0.023634 (secondary)
+  Training Data: all_data
+  Coverage: 1.0
+
+Standard Dac (Distributed):
+  R2 Score: 0.146442 → 0.585052 (PRIMARY)
+  R2 Improvement: +0.438610 (+299.51%)
+  MSE: 5.596826 → 2.720840 (secondary)
+  MSE Improvement: 51.39%
+  Final Data Size: 366
+  Total Stages: 19
+  Final Coverage: 0.6758
+
+Weighted Dac Poe (Distributed):
+  R2 Score: 0.146619 → 0.584723 (PRIMARY)
+  R2 Improvement: +0.438105 (+298.80%)
+  MSE: 5.595666 → 2.722991 (secondary)
+  MSE Improvement: 51.34%
+  Final Data Size: 366
+  Total Stages: 19
+  Final Coverage: 0.6758
+
+METHOD RANKING (by R2 Score - PRIMARY METRIC):
+  #1: Baseline_VSGP - R2 = 0.996396
+  #2: Standard_DAC - R2 = 0.585052
+  #3: Weighted_DAC_PoE - R2 = 0.584723
+
+BEST PERFORMING METHOD: Baseline_VSGP
+BEST R2 SCORE: 0.996396

@@ -1,0 +1,36 @@
+RBF_MIXTURE EXPERIMENT - R2-FOCUSED SUMMARY
+================================================================================
+PRIMARY METRIC: R2 Score
+SECONDARY METRIC: MSE
+
+BASELINE VSGP (Centralized):
+  R2 Score: 0.984896 (PRIMARY)
+  MSE: 0.019020 (secondary)
+  Training Data: all_data
+  Coverage: 1.0
+
+Standard Dac (Distributed):
+  R2 Score: 0.045709 → 0.669551 (PRIMARY)
+  R2 Improvement: +0.623843 (+1364.82%)
+  MSE: 1.201688 → 0.416116 (secondary)
+  MSE Improvement: 65.37%
+  Final Data Size: 716
+  Total Stages: 19
+  Final Coverage: 0.4863
+
+Weighted Dac Poe (Distributed):
+  R2 Score: 0.039165 → 0.670355 (PRIMARY)
+  R2 Improvement: +0.631190 (+1611.62%)
+  MSE: 1.209928 → 0.415104 (secondary)
+  MSE Improvement: 65.69%
+  Final Data Size: 716
+  Total Stages: 19
+  Final Coverage: 0.4854
+
+METHOD RANKING (by R2 Score - PRIMARY METRIC):
+  #1: Baseline_VSGP - R2 = 0.984896
+  #2: Weighted_DAC_PoE - R2 = 0.670355
+  #3: Standard_DAC - R2 = 0.669551
+
+BEST PERFORMING METHOD: Baseline_VSGP
+BEST R2 SCORE: 0.984896

@@ -1,0 +1,47 @@
+{
+  "experiment_name": "distributed_gp_full",
+  "timestamp": "20250725_194526",
+  "settings": {
+    "experiment_config": {
+      "num_agents": 3,
+      "topology": "ring",
+      "inducing_points": 10,
+      "epochs_per_stage": 50,
+      "consensus_steps": 5,
+      "learning_rate": 0.01,
+      "data_points": 200,
+      "test_split": 0.2,
+      "noise_level": 0.1,
+      "cuda_enabled": true,
+      "function_types": [
+        "multimodal",
+        "sinusoidal",
+        "polynomial",
+        "rbf_mixture"
+      ],
+      "save_results": true,
+      "verbose": true
+    },
+    "path_config": {
+      "project_root": ".",
+      "data_dir": "project/data",
+      "results_dir": "results",
+      "visualization_dir": "visualization",
+      "config_dir": "config",
+      "baseline_file": "baseline_vsgp.csv",
+      "standard_dac_file": "standard_dac.csv",
+      "weighted_dac_file": "weighted_dac_poe.csv",
+      "comparison_file": "r2_comparison.csv"
+    }
+  },
+  "results": {
+    "multimodal": {
+      "function_type": "multimodal",
+      "comparison_results": {
+        "baseline_vsgp": {
+          "method": "Baseline_VSGP",
+          "r2_score": 0.974148842026148,
+          "mse": 0.0667620619327288,
+          "rmse": 0.2583835558481398,
+          "mae": 0.17741804080610166,
+          "avg_uncertainty": 

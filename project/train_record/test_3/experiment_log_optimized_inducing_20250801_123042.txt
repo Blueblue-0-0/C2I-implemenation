@@ -1,0 +1,502 @@
+
+================================================================================
+DISTRIBUTED GP CONSENSUS EXPERIMENT LOG - OPTIMIZED INDUCING POINTS
+================================================================================
+Start Time: 2025-08-01 12:30:42
+Configuration:
+  - Number of Agents: 4
+  - Initial Training Size: 500
+  - Additional Data Size: 200
+  - Training Iterations: 500
+  - Consensus Steps: 5
+  - Device: cpu
+  - Inducing Points: OPTIMIZED (128 shared locations per agent)
+  - Consensus Type: FULL COVARIANCE MATRIX
+================================================================================
+
+[    0.00s] Loading agent data and optimized inducing points...
+[    0.06s] Loading OPTIMIZED inducing points from project/data/KIN40K_inducing_optimized.csv...
+[    0.06s] Optimized inducing points loaded successfully:
+[    0.06s]   - Shape: (128, 11)
+[    0.06s]   - Columns: ['agent_idx', 'inducing_idx', 'x0', 'x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7', 'y']
+[    0.06s] SHARED INDUCING POINTS CONFIGURATION:
+[    0.06s]   - Each agent uses ALL 128 inducing points
+[    0.06s]   - Same inducing locations shared across all agents
+[    0.06s]   - Original agent regions preserved for plotting purposes
+
+[    0.06s] Starting Test Data Loading...
+[    0.06s] Loading test data from dataset/KIN40K/KIN40K_test.mat...
+[    0.07s] Available keys in test data: ['__header__', '__version__', '__globals__', 'x', 'y']
+[    0.07s] Data keys found: ['x', 'y']
+[    0.07s] Test data loaded successfully:
+[    0.07s]   - Test X shape: (10000, 8)
+[    0.07s]   - Test Y shape: (10000, 1)
+[    0.07s]   - Test X range: [-1.7445, 1.7444]
+[    0.07s]   - Test Y range: [-3.9191, 3.2087]
+[    0.07s] Test Data Loading completed in 0.01 seconds
+[    0.07s] DATA SUMMARY - OPTIMIZED SHARED INDUCING POINTS CONSENSUS:
+[    0.07s]   - Total inducing points per agent: 128 (SHARED LOCATIONS)
+[    0.07s]   - Initial training size per agent: 500
+[    0.07s]   - Additional data size per agent: 200
+[    0.07s]   - Training iterations per agent: 500
+[    0.07s]   - Test data size: 10000
+[    0.07s]   - Consensus type: FULL COVARIANCE MATRIX
+
+[    0.07s] ================================================================================
+[    0.07s] STAGE 1: INITIAL TRAINING (500 samples per agent)
+[    0.07s] ================================================================================
+
+[    0.07s] Starting Agent Initialization and Training...
+
+[    0.07s] INITIALIZING Agent 0 with SHARED OPTIMIZED inducing points...
+[    0.07s] TRAINING Agent 0 (initial) with 500 iterations...
+[    6.95s] Agent 0 training completed in 6.87s (total: 6.88s)
+
+[    6.95s] INITIALIZING Agent 1 with SHARED OPTIMIZED inducing points...
+[    6.95s] TRAINING Agent 1 (initial) with 500 iterations...
+[   13.54s] Agent 1 training completed in 6.59s (total: 6.60s)
+
+[   13.54s] INITIALIZING Agent 2 with SHARED OPTIMIZED inducing points...
+[   13.55s] TRAINING Agent 2 (initial) with 500 iterations...
+[   20.00s] Agent 2 training completed in 6.45s (total: 6.46s)
+
+[   20.00s] INITIALIZING Agent 3 with SHARED OPTIMIZED inducing points...
+[   20.00s] TRAINING Agent 3 (initial) with 500 iterations...
+[   26.42s] Agent 3 training completed in 6.42s (total: 6.42s)
+[   26.42s] Agent Initialization and Training completed in 26.35 seconds
+
+[   26.42s] STORING initial hyperparameters...
+
+[   26.43s] ============================================================
+[   26.43s] STAGE 1 EVALUATION: After Initial Training
+[   26.43s] ============================================================
+
+[   26.43s] Starting Model Evaluation...
+
+[   26.43s] Evaluating Agent 1 on test data at stage: after_initial_training
+[   26.49s] Agent 1 Test Results (after_initial_training):
+[   26.49s]   - MSE: 0.595234
+[   26.49s]   - MAE: 0.608164
+[   26.49s]   - RMSE: 0.771514
+[   26.49s]   - R² Score: 0.404707
+[   26.49s]   - Max Error: 3.135770
+[   26.49s]   - Mean Uncertainty: 0.479927
+[   26.49s]   - 95% Coverage: 0.7817
+[   26.49s]   - Finite Samples: 10000/10000
+[   26.49s]   - Evaluation Time: 0.06s
+[   26.49s] Model Evaluation completed in 0.06 seconds
+
+[   26.49s] Starting Model Evaluation...
+
+[   26.49s] Evaluating Agent 2 on test data at stage: after_initial_training
+[   26.55s] Agent 2 Test Results (after_initial_training):
+[   26.55s]   - MSE: 0.576077
+[   26.55s]   - MAE: 0.594074
+[   26.55s]   - RMSE: 0.758997
+[   26.55s]   - R² Score: 0.423866
+[   26.55s]   - Max Error: 3.032547
+[   26.55s]   - Mean Uncertainty: 0.464931
+[   26.55s]   - 95% Coverage: 0.7795
+[   26.55s]   - Finite Samples: 10000/10000
+[   26.55s]   - Evaluation Time: 0.06s
+[   26.55s] Model Evaluation completed in 0.06 seconds
+
+[   26.55s] Starting Model Evaluation...
+
+[   26.55s] Evaluating Agent 3 on test data at stage: after_initial_training
+[   26.60s] Agent 3 Test Results (after_initial_training):
+[   26.60s]   - MSE: 0.628138
+[   26.60s]   - MAE: 0.626529
+[   26.60s]   - RMSE: 0.792552
+[   26.60s]   - R² Score: 0.371799
+[   26.60s]   - Max Error: 3.479832
+[   26.60s]   - Mean Uncertainty: 0.431322
+[   26.60s]   - 95% Coverage: 0.7155
+[   26.60s]   - Finite Samples: 10000/10000
+[   26.60s]   - Evaluation Time: 0.05s
+[   26.60s] Model Evaluation completed in 0.05 seconds
+
+[   26.60s] Starting Model Evaluation...
+
+[   26.60s] Evaluating Agent 4 on test data at stage: after_initial_training
+[   26.65s] Agent 4 Test Results (after_initial_training):
+[   26.65s]   - MSE: 0.582414
+[   26.65s]   - MAE: 0.606560
+[   26.65s]   - RMSE: 0.763161
+[   26.65s]   - R² Score: 0.417527
+[   26.65s]   - Max Error: 3.003537
+[   26.65s]   - Mean Uncertainty: 0.453868
+[   26.65s]   - 95% Coverage: 0.7484
+[   26.65s]   - Finite Samples: 10000/10000
+[   26.65s]   - Evaluation Time: 0.05s
+[   26.65s] Model Evaluation completed in 0.05 seconds
+[   26.65s] Evaluation results saved to: project/train_record/test_3/stage1_after_initial_training.csv
+
+[   26.65s] ================================================================================
+[   26.65s] STAGE 2: INITIAL CONSENSUS WITH FULL COVARIANCE
+[   26.65s] ================================================================================
+
+[   26.65s] SETTING UP DAC consensus (ring topology)...
+[   26.65s] DAC consensus matrix configured (alpha=0.2)
+
+[   26.65s] Starting Initial DAC Consensus with Full Covariance...
+
+[   26.65s] RUNNING initial DAC consensus with FULL covariance matrix...
+
+[   26.65s] INITIAL DAC Step 1/5...
+[   26.66s]   Applying consensus to 128×128 covariance elements...
+[   26.90s] Agent 0: Updated FULL mean and covariance from consensus
+[   26.90s] Agent 1: Updated FULL mean and covariance from consensus
+[   26.90s] Agent 2: Updated FULL mean and covariance from consensus
+[   26.90s] Agent 3: Updated FULL mean and covariance from consensus
+[   26.90s]   DAC Step 1 completed in 0.25s
+
+[   26.90s] INITIAL DAC Step 2/5...
+[   26.90s]   Applying consensus to 128×128 covariance elements...
+[   27.10s] Agent 0: Updated FULL mean and covariance from consensus
+[   27.10s] Agent 1: Updated FULL mean and covariance from consensus
+[   27.10s] Agent 2: Updated FULL mean and covariance from consensus
+[   27.10s] Agent 3: Updated FULL mean and covariance from consensus
+[   27.10s]   DAC Step 2 completed in 0.21s
+
+[   27.10s] INITIAL DAC Step 3/5...
+[   27.10s]   Applying consensus to 128×128 covariance elements...
+[   27.35s] Agent 0: Updated FULL mean and covariance from consensus
+[   27.35s] Agent 1: Updated FULL mean and covariance from consensus
+[   27.35s] Agent 2: Updated FULL mean and covariance from consensus
+[   27.35s] Agent 3: Updated FULL mean and covariance from consensus
+[   27.35s]   DAC Step 3 completed in 0.25s
+
+[   27.35s] INITIAL DAC Step 4/5...
+[   27.35s]   Applying consensus to 128×128 covariance elements...
+[   27.59s] Agent 0: Updated FULL mean and covariance from consensus
+[   27.59s] Agent 1: Updated FULL mean and covariance from consensus
+[   27.59s] Agent 2: Updated FULL mean and covariance from consensus
+[   27.59s] Agent 3: Updated FULL mean and covariance from consensus
+[   27.59s]   DAC Step 4 completed in 0.24s
+
+[   27.59s] INITIAL DAC Step 5/5...
+[   27.59s]   Applying consensus to 128×128 covariance elements...
+[   27.83s] Agent 0: Updated FULL mean and covariance from consensus
+[   27.83s] Agent 1: Updated FULL mean and covariance from consensus
+[   27.83s] Agent 2: Updated FULL mean and covariance from consensus
+[   27.83s] Agent 3: Updated FULL mean and covariance from consensus
+[   27.83s]   DAC Step 5 completed in 0.24s
+[   27.83s] Initial DAC Consensus with Full Covariance completed in 1.19 seconds
+
+[   27.83s] ============================================================
+[   27.83s] STAGE 2 EVALUATION: After Initial Consensus
+[   27.83s] ============================================================
+
+[   27.83s] Starting Model Evaluation...
+
+[   27.83s] Evaluating Agent 1 on test data at stage: after_initial_consensus
+[   27.90s] Agent 1 Test Results (after_initial_consensus):
+[   27.90s]   - MSE: 0.481991
+[   27.90s]   - MAE: 0.548878
+[   27.90s]   - RMSE: 0.694256
+[   27.90s]   - R² Score: 0.517961
+[   27.90s]   - Max Error: 2.823146
+[   27.90s]   - Mean Uncertainty: 0.479927
+[   27.90s]   - 95% Coverage: 0.8170
+[   27.90s]   - Finite Samples: 10000/10000
+[   27.90s]   - Evaluation Time: 0.07s
+[   27.90s] Model Evaluation completed in 0.07 seconds
+
+[   27.90s] Starting Model Evaluation...
+
+[   27.90s] Evaluating Agent 2 on test data at stage: after_initial_consensus
+[   27.96s] Agent 2 Test Results (after_initial_consensus):
+[   27.96s]   - MSE: 0.486063
+[   27.96s]   - MAE: 0.551043
+[   27.96s]   - RMSE: 0.697182
+[   27.96s]   - R² Score: 0.513889
+[   27.96s]   - Max Error: 2.837398
+[   27.96s]   - Mean Uncertainty: 0.464931
+[   27.96s]   - 95% Coverage: 0.8077
+[   27.96s]   - Finite Samples: 10000/10000
+[   27.96s]   - Evaluation Time: 0.06s
+[   27.96s] Model Evaluation completed in 0.06 seconds
+
+[   27.96s] Starting Model Evaluation...
+
+[   27.96s] Evaluating Agent 3 on test data at stage: after_initial_consensus
+[   28.02s] Agent 3 Test Results (after_initial_consensus):
+[   28.02s]   - MSE: 0.514500
+[   28.02s]   - MAE: 0.569667
+[   28.02s]   - RMSE: 0.717287
+[   28.02s]   - R² Score: 0.485449
+[   28.02s]   - Max Error: 2.885346
+[   28.02s]   - Mean Uncertainty: 0.431322
+[   28.02s]   - 95% Coverage: 0.7600
+[   28.02s]   - Finite Samples: 10000/10000
+[   28.02s]   - Evaluation Time: 0.06s
+[   28.02s] Model Evaluation completed in 0.06 seconds
+
+[   28.02s] Starting Model Evaluation...
+
+[   28.02s] Evaluating Agent 4 on test data at stage: after_initial_consensus
+[   28.08s] Agent 4 Test Results (after_initial_consensus):
+[   28.08s]   - MSE: 0.487850
+[   28.08s]   - MAE: 0.550985
+[   28.08s]   - RMSE: 0.698463
+[   28.08s]   - R² Score: 0.512101
+[   28.08s]   - Max Error: 2.881975
+[   28.08s]   - Mean Uncertainty: 0.453868
+[   28.08s]   - 95% Coverage: 0.8031
+[   28.08s]   - Finite Samples: 10000/10000
+[   28.08s]   - Evaluation Time: 0.05s
+[   28.08s] Model Evaluation completed in 0.05 seconds
+[   28.08s] Evaluation results saved to: project/train_record/test_3/stage2_after_initial_consensus.csv
+
+[   28.08s] ================================================================================
+[   28.08s] STAGE 3: TRAINING WITH ADDITIONAL 200 DATA POINTS
+[   28.08s] ================================================================================
+
+[   28.08s] Starting Additional Data Training...
+
+[   28.08s] ADDING additional 200 data points to each agent...
+[   28.08s] Agent 0: Added 200 additional points (total: 700)
+[   28.08s] RETRAINING Agent 0 with 500 iterations...
+[   35.43s] Agent 0 retraining completed in 7.35s
+[   35.43s] Agent 1: Added 200 additional points (total: 700)
+[   35.43s] RETRAINING Agent 1 with 500 iterations...
+[   42.77s] Agent 1 retraining completed in 7.34s
+[   42.77s] Agent 2: Added 200 additional points (total: 700)
+[   42.77s] RETRAINING Agent 2 with 500 iterations...
+[   50.51s] Agent 2 retraining completed in 7.74s
+[   50.51s] Agent 3: Added 200 additional points (total: 700)
+[   50.51s] RETRAINING Agent 3 with 500 iterations...
+[   58.20s] Agent 3 retraining completed in 7.69s
+[   58.20s] Additional Data Training completed in 30.13 seconds
+
+[   58.22s] ============================================================
+[   58.22s] STAGE 3 EVALUATION: After Training with Additional 200 Points
+[   58.22s] ============================================================
+
+[   58.22s] Starting Model Evaluation...
+
+[   58.22s] Evaluating Agent 1 on test data at stage: after_additional_training
+[   58.29s] Agent 1 Test Results (after_additional_training):
+[   58.29s]   - MSE: 0.515127
+[   58.29s]   - MAE: 0.562869
+[   58.29s]   - RMSE: 0.717723
+[   58.29s]   - R² Score: 0.484822
+[   58.29s]   - Max Error: 3.019664
+[   58.29s]   - Mean Uncertainty: 0.470836
+[   58.29s]   - 95% Coverage: 0.8136
+[   58.29s]   - Finite Samples: 10000/10000
+[   58.29s]   - Evaluation Time: 0.07s
+[   58.29s] Model Evaluation completed in 0.07 seconds
+
+[   58.29s] Starting Model Evaluation...
+
+[   58.29s] Evaluating Agent 2 on test data at stage: after_additional_training
+[   58.34s] Agent 2 Test Results (after_additional_training):
+[   58.34s]   - MSE: 0.488910
+[   58.34s]   - MAE: 0.544426
+[   58.34s]   - RMSE: 0.699221
+[   58.34s]   - R² Score: 0.511041
+[   58.34s]   - Max Error: 2.865836
+[   58.34s]   - Mean Uncertainty: 0.469408
+[   58.34s]   - 95% Coverage: 0.8209
+[   58.34s]   - Finite Samples: 10000/10000
+[   58.34s]   - Evaluation Time: 0.06s
+[   58.34s] Model Evaluation completed in 0.06 seconds
+
+[   58.34s] Starting Model Evaluation...
+
+[   58.34s] Evaluating Agent 3 on test data at stage: after_additional_training
+[   58.41s] Agent 3 Test Results (after_additional_training):
+[   58.41s]   - MSE: 0.540311
+[   58.41s]   - MAE: 0.583003
+[   58.41s]   - RMSE: 0.735058
+[   58.41s]   - R² Score: 0.459635
+[   58.41s]   - Max Error: 3.243037
+[   58.41s]   - Mean Uncertainty: 0.444154
+[   58.41s]   - 95% Coverage: 0.7656
+[   58.41s]   - Finite Samples: 10000/10000
+[   58.41s]   - Evaluation Time: 0.06s
+[   58.41s] Model Evaluation completed in 0.07 seconds
+
+[   58.41s] Starting Model Evaluation...
+
+[   58.41s] Evaluating Agent 4 on test data at stage: after_additional_training
+[   58.46s] Agent 4 Test Results (after_additional_training):
+[   58.46s]   - MSE: 0.527696
+[   58.46s]   - MAE: 0.571502
+[   58.46s]   - RMSE: 0.726427
+[   58.46s]   - R² Score: 0.472251
+[   58.46s]   - Max Error: 2.971107
+[   58.46s]   - Mean Uncertainty: 0.431644
+[   58.46s]   - 95% Coverage: 0.7466
+[   58.46s]   - Finite Samples: 10000/10000
+[   58.46s]   - Evaluation Time: 0.05s
+[   58.46s] Model Evaluation completed in 0.05 seconds
+[   58.47s] Evaluation results saved to: project/train_record/test_3/stage3_after_additional_training.csv
+
+[   58.47s] ================================================================================
+[   58.47s] STAGE 4: FINAL CONSENSUS AFTER ADDITIONAL TRAINING
+[   58.47s] ================================================================================
+
+[   58.47s] Starting Final DAC Consensus with Full Covariance...
+
+[   58.47s] RUNNING final DAC consensus with FULL covariance matrix...
+
+[   58.47s] FINAL DAC Step 1/5...
+[   58.73s] Agent 0: Updated FULL mean and covariance from consensus
+[   58.73s] Agent 1: Updated FULL mean and covariance from consensus
+[   58.73s] Agent 2: Updated FULL mean and covariance from consensus
+[   58.73s] Agent 3: Updated FULL mean and covariance from consensus
+[   58.73s]   DAC Step 1 completed in 0.26s
+
+[   58.73s] FINAL DAC Step 2/5...
+[   58.99s] Agent 0: Updated FULL mean and covariance from consensus
+[   58.99s] Agent 1: Updated FULL mean and covariance from consensus
+[   58.99s] Agent 2: Updated FULL mean and covariance from consensus
+[   58.99s] Agent 3: Updated FULL mean and covariance from consensus
+[   58.99s]   DAC Step 2 completed in 0.26s
+
+[   58.99s] FINAL DAC Step 3/5...
+[   59.27s] Agent 0: Updated FULL mean and covariance from consensus
+[   59.27s] Agent 1: Updated FULL mean and covariance from consensus
+[   59.27s] Agent 2: Updated FULL mean and covariance from consensus
+[   59.27s] Agent 3: Updated FULL mean and covariance from consensus
+[   59.27s]   DAC Step 3 completed in 0.28s
+
+[   59.27s] FINAL DAC Step 4/5...
+[   59.54s] Agent 0: Updated FULL mean and covariance from consensus
+[   59.54s] Agent 1: Updated FULL mean and covariance from consensus
+[   59.54s] Agent 2: Updated FULL mean and covariance from consensus
+[   59.54s] Agent 3: Updated FULL mean and covariance from consensus
+[   59.54s]   DAC Step 4 completed in 0.27s
+
+[   59.54s] FINAL DAC Step 5/5...
+[   59.83s] Agent 0: Updated FULL mean and covariance from consensus
+[   59.83s] Agent 1: Updated FULL mean and covariance from consensus
+[   59.83s] Agent 2: Updated FULL mean and covariance from consensus
+[   59.83s] Agent 3: Updated FULL mean and covariance from consensus
+[   59.83s]   DAC Step 5 completed in 0.29s
+[   59.83s] Final DAC Consensus with Full Covariance completed in 1.36 seconds
+
+[   59.83s] ============================================================
+[   59.83s] STAGE 4 EVALUATION: After Final Consensus
+[   59.83s] ============================================================
+
+[   59.83s] Starting Model Evaluation...
+
+[   59.83s] Evaluating Agent 1 on test data at stage: after_final_consensus
+[   59.94s] Agent 1 Test Results (after_final_consensus):
+[   59.94s]   - MSE: 0.390986
+[   59.94s]   - MAE: 0.494307
+[   59.94s]   - RMSE: 0.625289
+[   59.94s]   - R² Score: 0.608975
+[   59.94s]   - Max Error: 2.522206
+[   59.94s]   - Mean Uncertainty: 0.470836
+[   59.94s]   - 95% Coverage: 0.8521
+[   59.94s]   - Finite Samples: 10000/10000
+[   59.94s]   - Evaluation Time: 0.10s
+[   59.94s] Model Evaluation completed in 0.11 seconds
+
+[   59.94s] Starting Model Evaluation...
+
+[   59.94s] Evaluating Agent 2 on test data at stage: after_final_consensus
+[   60.03s] Agent 2 Test Results (after_final_consensus):
+[   60.03s]   - MSE: 0.387670
+[   60.03s]   - MAE: 0.490214
+[   60.03s]   - RMSE: 0.622631
+[   60.03s]   - R² Score: 0.612291
+[   60.04s]   - Max Error: 2.743066
+[   60.04s]   - Mean Uncertainty: 0.469408
+[   60.04s]   - 95% Coverage: 0.8564
+[   60.04s]   - Finite Samples: 10000/10000
+[   60.04s]   - Evaluation Time: 0.09s
+[   60.04s] Model Evaluation completed in 0.10 seconds
+
+[   60.04s] Starting Model Evaluation...
+
+[   60.04s] Evaluating Agent 3 on test data at stage: after_final_consensus
+[   60.12s] Agent 3 Test Results (after_final_consensus):
+[   60.12s]   - MSE: 0.404869
+[   60.12s]   - MAE: 0.505605
+[   60.12s]   - RMSE: 0.636293
+[   60.12s]   - R² Score: 0.595091
+[   60.12s]   - Max Error: 2.516849
+[   60.12s]   - Mean Uncertainty: 0.444154
+[   60.12s]   - 95% Coverage: 0.8238
+[   60.12s]   - Finite Samples: 10000/10000
+[   60.12s]   - Evaluation Time: 0.09s
+[   60.13s] Model Evaluation completed in 0.09 seconds
+
+[   60.13s] Starting Model Evaluation...
+
+[   60.13s] Evaluating Agent 4 on test data at stage: after_final_consensus
+[   60.20s] Agent 4 Test Results (after_final_consensus):
+[   60.20s]   - MSE: 0.419513
+[   60.20s]   - MAE: 0.512257
+[   60.20s]   - RMSE: 0.647698
+[   60.20s]   - R² Score: 0.580445
+[   60.20s]   - Max Error: 2.838893
+[   60.20s]   - Mean Uncertainty: 0.431644
+[   60.20s]   - 95% Coverage: 0.8064
+[   60.20s]   - Finite Samples: 10000/10000
+[   60.20s]   - Evaluation Time: 0.07s
+[   60.20s] Model Evaluation completed in 0.07 seconds
+[   60.20s] Evaluation results saved to: project/train_record/test_3/stage4_after_final_consensus.csv
+
+[   60.20s] Starting Comprehensive Data Saving and Analysis...
+
+[   60.20s] SAVING comprehensive experiment data...
+[   60.21s] Complete evaluation results saved to: project/train_record/test_3/complete_evaluation_results.csv
+[   60.22s] Hyperparameters saved to: project/train_record/test_3/hyperparameters_history_optimized_inducing.csv
+[   60.22s] Performance improvement analysis saved to: project/train_record/test_3/performance_improvement_analysis.csv
+[   60.23s] Summary statistics saved to: project/train_record/test_3/summary_statistics.csv
+
+[   60.23s] ====================================================================================================
+[   60.23s] COMPREHENSIVE PERFORMANCE ANALYSIS - OPTIMIZED SHARED INDUCING POINTS
+[   60.23s] ====================================================================================================
+
+[   60.23s] AFTER INITIAL TRAINING:
+[   60.23s]   MSE:  0.595466 ± 0.023193
+[   60.23s]   MAE:  0.608832 ± 0.013374
+[   60.23s]   RMSE: 0.771556 ± 0.014933
+[   60.23s]   R²:   0.404475 ± 0.023196
+[   60.23s]   Uncertainty: 0.457512 ± 0.020467
+[   60.23s]   Coverage: 0.7563
+
+[   60.23s] AFTER INITIAL CONSENSUS:
+[   60.23s]   MSE:  0.492601 ± 0.014804
+[   60.23s]   MAE:  0.555143 ± 0.009735
+[   60.23s]   RMSE: 0.701797 ± 0.010476
+[   60.23s]   R²:   0.507350 ± 0.014805
+[   60.23s]   Uncertainty: 0.457512 ± 0.020467
+[   60.23s]   Coverage: 0.7969
+
+[   60.23s] AFTER ADDITIONAL TRAINING:
+[   60.23s]   MSE:  0.518011 ± 0.021956
+[   60.23s]   MAE:  0.565450 ± 0.016263
+[   60.23s]   RMSE: 0.719607 ± 0.015323
+[   60.23s]   R²:   0.481937 ± 0.021959
+[   60.23s]   Uncertainty: 0.454010 ± 0.019301
+[   60.23s]   Coverage: 0.7867
+
+[   60.23s] AFTER FINAL CONSENSUS:
+[   60.23s]   MSE:  0.400759 ± 0.014554
+[   60.23s]   MAE:  0.500596 ± 0.010139
+[   60.23s]   RMSE: 0.632978 ± 0.011458
+[   60.23s]   R²:   0.599201 ± 0.014555
+[   60.23s]   Uncertainty: 0.454010 ± 0.019301
+[   60.23s]   Coverage: 0.8347
+
+[   60.24s] ================================================================================
+[   60.24s] OVERALL IMPROVEMENT SUMMARY:
+[   60.24s] ================================================================================
+[   60.24s] MSE Improvement:  +32.70%
+[   60.24s] R² Improvement:   +48.14%
+[   60.24s] Final Avg MSE:    0.400759
+[   60.24s] Final Avg R²:     0.599201
+[   60.24s] Comprehensive Data Saving and Analysis completed in 0.03 seconds
+
+[   60.24s] Starting Enhanced Plot Generation...
+
+[   60.24s] CREATING comprehensive evaluation plots...
